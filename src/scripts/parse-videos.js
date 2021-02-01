@@ -4,7 +4,7 @@ const fs = require('fs');
 const parseVideos = require('../utils/parse-videos');
 
 const assetsDir = path.join(__dirname, '..', '..', 'videos');
-const outputFile = path.join(__dirname, '..', 'cache', 'videos.json');
+const outputFile = path.join(__dirname, '..', '..', 'cache', 'videos.json');
 
 if (!fs.existsSync(assetsDir)) {
   console.error('The assets folder does not exist, please create it');

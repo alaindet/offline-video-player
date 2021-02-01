@@ -14,3 +14,4 @@ x- Add .gitkeep to cache and videos dirs
 - Fetch alert in video page
 - Show alert on video page
 - Create form on video page to bookmark
+- Show time needed to parse videos
