@@ -1,0 +1,7 @@
+- Centralize cache
+- Build step for CSS and JS public files
+- TypeScript
+- Barrel files
+- README.md
+- Dependency Injection with tsyringe
+- LICENSE

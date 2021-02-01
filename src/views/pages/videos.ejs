@@ -1,0 +1,24 @@
+<%#
+# Variables
+- pageTitle
+- videos
+#%>
+
+<%- include('../includes/top.ejs') %>
+
+<h1>Video Streaming App</h1>
+
+<h2>Videos list</h2>
+
+<ul class="video-list">
+  <% for (const video of videos) { %>
+    <li class="video-item">
+      <a href="/video/<%= video.urlPath %>">
+        <h3 class="item-title"><%= video.name %></h3>
+        <em class="item-duration"><%= video.duration %></em>
+      </a>
+    </li>
+    <% } %>
+</ul>
+
+<%- include('../includes/bottom.ejs') %>

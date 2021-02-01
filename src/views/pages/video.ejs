@@ -1,0 +1,44 @@
+<%#
+# Variables
+- pageTitle
+- videos
+- video
+#%>
+
+<%- include('../includes/top.ejs') %>
+
+<main class="video-container">
+  <video class="video-player" width="90%" controls autoplay>
+    <source src="/video-source/<%= video.urlPath %>" type="video/mp4">
+  </video>
+  <div class="playback-controls">
+    <strong id="playback-rate">1.0x</strong>
+    <button id="playback-slower">- 0.25x</button>
+    <button id="playback-reset">1.0x</button>
+    <button id="playback-faster">+ 0.25x</button>
+  </div>
+</main>
+
+<button class="menu-open">Open menu</button>
+
+<aside class="menu">
+  <div class="menu-close-container">
+    <button class="menu-close">Close menu</button>
+  </div>
+  <ul class="video-list">
+    <% for (const video of videos) { %>
+      <li class="video-list-item">
+        <a href="<%= video.urlPath %>" class="item-link">
+          <span class="item-title">
+            <%= video.name %>
+          </span>
+          <span class="item-duration">
+            <%= video.duration %>
+          </span>
+        </a>
+      </li>
+      <% } %>
+  </ul>
+</aside>
+
+<%- include('../includes/bottom.ejs') %>
