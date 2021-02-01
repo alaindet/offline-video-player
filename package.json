@@ -5,7 +5,7 @@
   "main": "src/index.js",
   "scripts": {
     "start": "node ./src/index.js",
-    "parse-assets": "node ./src/scripts/parse-assets.js",
+    "parse-videos": "node ./src/scripts/parse-videos.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "Alain D'Ettorre <alain.det@gmail.com>",
@@ -17,7 +17,7 @@
     "glob": "^7.1.6",
     "humanize-duration": "^3.25.1",
     "kebab-case": "^1.0.0",
-    "node-cache": "^5.1.2",
-    "nodemon": "^2.0.7"
+    "nodemon": "^2.0.7",
+    "open": "^7.3.1"
   }
 }

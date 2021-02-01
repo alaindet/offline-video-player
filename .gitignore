@@ -1,3 +1,10 @@
-node_modules
-**/cache/
-**/assets/
+.idea/
+.vscode/
+node_modules/
+
+/videos/
+!/videos/.gitkeep
+/cache
+!/cache/.gitkeep
+/storage
+!/storage/.gitkeep

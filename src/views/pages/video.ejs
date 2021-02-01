@@ -3,42 +3,55 @@
 - pageTitle
 - videos
 - video
+- prevVideoPath
+- nextVideoPath
 #%>
 
 <%- include('../includes/top.ejs') %>
 
 <main class="video-container">
+
   <video class="video-player" width="90%" controls autoplay>
     <source src="/video-source/<%= video.urlPath %>" type="video/mp4">
   </video>
-  <div class="playback-controls">
-    <strong id="playback-rate">1.0x</strong>
-    <button id="playback-slower">- 0.25x</button>
-    <button id="playback-reset">1.0x</button>
-    <button id="playback-faster">+ 0.25x</button>
+
+  <div class="video-controls">
+
+    <button class="full-width" id="menu-open">Open menu</button>
+
+    <!-- Prev -->
+    <% if (prevVideoPath) { %>
+      <button class="full-width">
+        <a href="/video/<%= prevVideoPath %>">Prev</a>
+      </button>
+    <% } %>
+
+    <!-- Playback -->
+    <strong class="full-width" id="playback-rate">1.0x</strong>
+    <button class="full-width" id="playback-slower">- 0.25x</button>
+    <button class="full-width" id="playback-reset">1.0x</button>
+    <button class="full-width" id="playback-faster">+ 0.25x</button>
+
+    <!-- Bookmark -->
+    <button class="full-width">
+      <a href="/video/<%= nextVideoPath %>/bookmark">Bookmark</a>
+    </button>
+
+    <!-- Next -->
+    <% if (nextVideoPath) { %>
+      <button class="full-width">
+        <a href="/video/<%= nextVideoPath %>">Next</a>
+      </button>
+    <% } %>
+
   </div>
 </main>
-
-<button class="menu-open">Open menu</button>
 
 <aside class="menu">
   <div class="menu-close-container">
     <button class="menu-close">Close menu</button>
   </div>
-  <ul class="video-list">
-    <% for (const video of videos) { %>
-      <li class="video-list-item">
-        <a href="<%= video.urlPath %>" class="item-link">
-          <span class="item-title">
-            <%= video.name %>
-          </span>
-          <span class="item-duration">
-            <%= video.duration %>
-          </span>
-        </a>
-      </li>
-      <% } %>
-  </ul>
+  <%- include('../includes/videos-list.ejs') %>
 </aside>
 
 <%- include('../includes/bottom.ejs') %>

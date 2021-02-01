@@ -1,22 +1,33 @@
-const path = require('path');
-const fs = require('fs');
-const express = require('express');
+const alert = require('../data/alerts');
 
-// Cache
-const cachePath = path.join(__dirname, '..', 'cache', 'assets.json');
-if (!fs.existsSync(cachePath)) {
-  console.error('Cache file does not exist. Run "npm run parse-assets"');
-  process.exit(1);
-}
-const videos = JSON.parse(fs.readFileSync(cachePath));
+const getVideo = (videos) => (req, res) => {
 
-const router = express.Router();
-
-router.get('/video/:urlpath', (req, res) => {
   const urlPath = req.params.urlpath;
-  const video = videos.find(i => i.urlPath === urlPath);
-  const pageTitle = video.name;
-  res.render('pages/video', { pageTitle, videos, video });
-});
+  const videoIndex = videos.findIndex(vid => vid.urlPath === urlPath);
 
-module.exports = router;
+  if (videoIndex === -1) {
+    return res.status(404).send({
+      message: `Video with path ${urlPath} not found`,
+    });
+  }
+
+  const video = videos[videoIndex];
+
+  const prevVideo = videos[videoIndex - 1];
+  const prevVideoPath = prevVideo ? prevVideo.urlPath : null;
+
+  const nextVideo = videos[videoIndex + 1];
+  const nextVideoPath = nextVideo ? nextVideo.urlPath : null;
+
+  res.render('pages/video', {
+    pageTitle: video.name,
+    videos,
+    video,
+    prevVideoPath: prevVideoPath,
+    nextVideoPath: nextVideoPath,
+  });
+};
+
+module.exports = {
+  getVideo,
+};

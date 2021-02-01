@@ -1,5 +1,3 @@
-const path = require('path');
-const fs = require('fs');
 const { getVideoDurationInSeconds } = require('get-video-duration');
 const humanizeDuration = require('humanize-duration');
 const glob = require('glob');
@@ -9,11 +7,10 @@ const getFileName = require('./get-filename');
 
 /**
  * Reads a folder to find videos, then parses their duration
- * @param {*} assetsDir 
  */
-const parseVideos = async (assetsDir) => {
+const parseVideos = async (videosDir) => {
 
-  const fullPaths = glob.sync(`${assetsDir}/**/*.mp4`);
+  const fullPaths = glob.sync(`${videosDir}/**/*.mp4`);
   if (fullPaths.length === 0) {
     return [];
   }

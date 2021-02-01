@@ -12,7 +12,7 @@ const selectElements = () => {
     playbackReset: document.querySelector('#playback-reset'),
     playbackFaster: document.querySelector('#playback-faster'),
     menu: document.querySelector('.menu'),
-    menuOpen: document.querySelector('.menu-open'),
+    menuOpen: document.querySelector('#menu-open'),
     menuClose: document.querySelector('.menu-close'),
   };
 };

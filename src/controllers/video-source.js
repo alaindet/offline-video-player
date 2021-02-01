@@ -1,20 +1,9 @@
 const path = require('path');
 const fs = require('fs');
-const express = require('express');
 
-// Cache
-const cachePath = path.join(__dirname, '..', 'cache', 'assets.json');
-if (!fs.existsSync(cachePath)) {
-  console.error('Cache file does not exist. Run "npm run parse-assets"');
-  process.exit(1);
-}
-const videos = JSON.parse(fs.readFileSync(cachePath));
+const getVideoSource = (videos, chunkSize) => (req, res) => {
 
-const router = express.Router();
-const CHUNK_SIZE = 8 * 1024 * 1024; // 1Mb
-
-router.get('/video-source/:urlpath', (req, res) => {
-
+  // Check range headers
   const range = req.headers.range;
   if (!range) {
     const message = 'Required Range header';
@@ -23,11 +12,11 @@ router.get('/video-source/:urlpath', (req, res) => {
   }
 
   const urlPath = req.params.urlpath;
-  const video = videos.find(i => i.urlPath === urlPath);
+  const video = videos.find(vid => vid.urlPath === urlPath);
   const videoPath = video.fullPath;
   const videoSize = fs.statSync(videoPath).size;
   const start = Number(range.replace(/\D/g, ''));
-  const end = Math.min(start + CHUNK_SIZE, videoSize - 1);
+  const end = Math.min(start + chunkSize, videoSize - 1);
   const contentLength = end - start + 1;
   const headers = {
     'Content-Range': `bytes ${start}-${end}/${videoSize}`,
@@ -39,6 +28,8 @@ router.get('/video-source/:urlpath', (req, res) => {
   res.writeHead(206, headers);
   const videoStream = fs.createReadStream(videoPath, { start, end });
   videoStream.pipe(res);
-});
+};
 
-module.exports = router;
+module.exports = {
+  getVideoSource,
+};

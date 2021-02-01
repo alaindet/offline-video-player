@@ -1,0 +1,10 @@
+<ul class="video-list">
+  <% for (const video of videos) { %>
+    <li>
+      <a href="/video/<%= video.urlPath %>" class="video-item">
+        <h3 class="item-title"><%= video.name %></h3>
+        <em class="item-duration"><%= video.duration %></em>
+      </a>
+    </li>
+  <% } %>
+</ul>
