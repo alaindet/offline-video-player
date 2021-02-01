@@ -5,3 +5,4 @@
 - README.md
 - Dependency Injection with tsyringe
 - LICENSE
+- Add .gitkeep to cache and assets dirs
