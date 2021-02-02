@@ -1,7 +1,10 @@
-const alert = require('../data/alerts');
+const videosCache = require('../services/videos-cache');
 
-const getVideo = (videos) => (req, res) => {
+const getVideo = (req, res) => {
 
+  const alerts = req.flash('alert');
+
+  const videos = videosCache.read();
   const urlPath = req.params.urlpath;
   const videoIndex = videos.findIndex(vid => vid.urlPath === urlPath);
 

@@ -11,8 +11,11 @@
   "author": "Alain D'Ettorre <alain.det@gmail.com>",
   "license": "MIT",
   "dependencies": {
+    "connect-flash": "^0.1.1",
+    "cookie-parser": "^1.4.5",
     "ejs": "^3.1.5",
     "express": "^4.17.1",
+    "express-session": "^1.17.1",
     "get-video-duration": "^3.0.2",
     "glob": "^7.1.6",
     "humanize-duration": "^3.25.1",

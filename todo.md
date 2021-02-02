@@ -1,6 +1,6 @@
 - [ ] README.md
 - [ ] LICENSE
-- [ ] Add .gitkeep to cache and videos dirs
+- [x] Add .gitkeep to cache and videos dirs
 - [ ] Add bookmark feature
 - [ ] Add home link button
 - [ ] Highlight current video
@@ -8,4 +8,6 @@
 - [ ] Fetch alert in video page
 - [ ] Show alert on video page
 - [ ] Create form on video page to bookmark
-- [ ] Show time needed to parse videos on parse-videos NPM script
+- [x] Show time needed to parse videos on parse-videos NPM script
+- [ ] Automatically play next video
+- [x] Use config data

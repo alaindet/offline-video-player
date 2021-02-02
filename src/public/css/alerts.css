@@ -1,0 +1,31 @@
+.alerts {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  pointer-events: none;
+}
+
+.alert {
+  position: relative;
+  max-width: 400px;
+  background-color: goldenrod;
+  color: #333;
+  border-radius: 0.5rem;
+}
+
+.alert-close {
+  position: absolute;
+  top: 1rem;
+  left: 1rem;
+  cursor: pointer;
+}
+.alert-close:hover,
+.alert-close:focus {
+  outline: none;
+  color: white;
+}

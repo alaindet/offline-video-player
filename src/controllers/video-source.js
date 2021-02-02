@@ -1,7 +1,9 @@
-const path = require('path');
 const fs = require('fs');
 
-const getVideoSource = (videos, chunkSize) => (req, res) => {
+const videosCache = require('../services/videos-cache');
+const config = require('../config/video');
+
+const getVideoSource = (req, res) => {
 
   // Check range headers
   const range = req.headers.range;
@@ -12,11 +14,12 @@ const getVideoSource = (videos, chunkSize) => (req, res) => {
   }
 
   const urlPath = req.params.urlpath;
+  const videos = videosCache.read();
   const video = videos.find(vid => vid.urlPath === urlPath);
   const videoPath = video.fullPath;
   const videoSize = fs.statSync(videoPath).size;
   const start = Number(range.replace(/\D/g, ''));
-  const end = Math.min(start + chunkSize, videoSize - 1);
+  const end = Math.min(start + config.STREAM_CHUNK_SIZE, videoSize - 1);
   const contentLength = end - start + 1;
   const headers = {
     'Content-Range': `bytes ${start}-${end}/${videoSize}`,
