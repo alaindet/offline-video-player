@@ -2,9 +2,9 @@
 .vscode/
 node_modules/
 
-/videos/
+/videos/*
 !/videos/.gitkeep
-/cache
+/cache/*
 !/cache/.gitkeep
-/storage
+/storage/*
 !/storage/.gitkeep
