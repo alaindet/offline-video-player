@@ -4,28 +4,35 @@
   align-items: center;
   flex-direction: column;
   position: fixed;
-  top: 0;
+  top: 1rem;
   left: 0;
   right: 0;
-  pointer-events: none;
 }
 
 .alert {
   position: relative;
-  max-width: 400px;
+  width: 100%;
+  padding: 1rem 1.5rem;
+  max-width: 500px;
   background-color: goldenrod;
   color: #333;
   border-radius: 0.5rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 
 .alert-close {
-  position: absolute;
-  top: 1rem;
-  left: 1rem;
+  background-color: transparent;
+  padding: 0;
+  margin: 0;
   cursor: pointer;
+  color: #333;
+  font-size: 1.5rem;
 }
 .alert-close:hover,
 .alert-close:focus {
   outline: none;
   color: white;
+  background-color: transparent;
 }

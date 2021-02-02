@@ -28,6 +28,7 @@ const getVideo = (req, res) => {
     video,
     prevVideoPath: prevVideoPath,
     nextVideoPath: nextVideoPath,
+    alerts,
   });
 };
 

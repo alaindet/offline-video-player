@@ -1,5 +1,5 @@
 let elements = {};
 
 const selectElements = (newElements) => {
-  elements = [...elements, ...newElements];
+  elements = {...elements, ...newElements};
 };

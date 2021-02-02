@@ -4,12 +4,12 @@ const getHome = (req, res) => {
 
   // TODO: Remove
   req.flash('alert', 'The bookmark has been saved');
-  const alerts = req.flash('alerts');
+  const alerts = req.flash('alert');
 
   res.render('pages/videos', {
-    pageTitle: 'Video Streaming App',
+    pageTitle: 'Offline Video Player',
     videos: videosCache.read(),
-    alerts: alerts ? alerts : [],
+    alerts,
   });
 };
 

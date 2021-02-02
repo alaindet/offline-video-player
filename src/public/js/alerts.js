@@ -1,5 +1,5 @@
-const onAlertClose = (element) => {
-  element.remove();
+function onAlertClose(event) {
+  event.target.closest('.alert').remove();
 };
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -8,5 +8,5 @@ document.addEventListener('DOMContentLoaded', () => {
     alert: document.querySelector('.alert'),
   });
 
-  elements.alert.addEventListener('click', onAlertClose);
+  elements.alert?.addEventListener('click', onAlertClose);
 });

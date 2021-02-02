@@ -31,7 +31,7 @@ document.addEventListener('DOMContentLoaded', () => {
     playbackFaster: document.querySelector('#playback-faster'),
   });
 
-  elements.playbackSlower.addEventListener('click', onPlaybackSlowerClick);
-  elements.playbackReset.addEventListener('click', onPlaybackResetClick);
-  elements.playbackFaster.addEventListener('click', onPlaybackFasterClick);
+  elements.playbackSlower?.addEventListener('click', onPlaybackSlowerClick);
+  elements.playbackReset?.addEventListener('click', onPlaybackResetClick);
+  elements.playbackFaster?.addEventListener('click', onPlaybackFasterClick);
 });

@@ -14,6 +14,6 @@ document.addEventListener('DOMContentLoaded', () => {
     menuClose: document.querySelector('.menu-close'),
   });
 
-  elements.menuOpen.addEventListener('click', onMenuOpen);
-  elements.menuClose.addEventListener('click', onMenuClose);
+  elements.menuOpen?.addEventListener('click', onMenuOpen);
+  elements.menuClose?.addEventListener('click', onMenuClose);
 });
