@@ -2,7 +2,7 @@ const path = require('path');
 const fs = require('fs');
 
 const paths = require('../config/paths');
-const videosCache = require('../services/videos-cache');
+const videosCache = require('../services/videos-cache.service');
 
 const TIME_LABEL = 'parse-videos';
 const videosDir = path.join(paths.VIDEOS);

@@ -6,13 +6,12 @@
 - prevVideoPath
 - nextVideoPath
 #%>
-
 <%- include('../includes/top.ejs') %>
 
 <main class="video-container">
 
   <video class="video-player" width="90%" controls autoplay>
-    <source src="/video-source/<%= video.urlPath %>" type="video/mp4">
+    <source src="/source/<%= video.urlPath %>" type="video/mp4">
   </video>
 
   <div class="video-controls">

@@ -1,7 +1,7 @@
 const fs = require('fs');
 
-const videosCache = require('../services/videos-cache');
-const config = require('../config/video');
+const videosCache = require('../services/videos-cache.service');
+const config = require('../config/video.config');
 
 const getVideoSource = (req, res) => {
 

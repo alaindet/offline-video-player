@@ -1,4 +1,4 @@
-const bookmark = require('../services/bookmark');
+const bookmark = require('../services/bookmark.service');
 
 const postBookmarkVideo = (req, res) => {
   const urlPath = req.params.urlpath;

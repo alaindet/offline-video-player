@@ -1,4 +1,4 @@
-const videosCache = require('../services/videos-cache');
+const videosCache = require('../services/videos-cache.service');
 
 const getHome = (req, res) => {
 

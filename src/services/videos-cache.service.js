@@ -5,8 +5,8 @@ const { getVideoDurationInSeconds } = require('get-video-duration');
 const humanizeDuration = require('humanize-duration');
 const kebabCase = require('kebab-case');
 
-const paths = require('../config/paths');
-const getFileName = require('../utils/get-filename');
+const paths = require('../config/paths.config');
+const getFileName = require('../utils/get-filename.util');
 
 const read = () => {
   const file = path.join(paths.CACHE, 'videos.json');

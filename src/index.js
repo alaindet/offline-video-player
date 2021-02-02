@@ -3,13 +3,17 @@ const open = require('open');
 const session = require('express-session');
 const flash = require('connect-flash');
 const cookieParser = require('cookie-parser');
-const paths = require('./config/paths');
-const sessionConfig = require('./config/session');
-const expressConfig = require('./config/express');
-const { getHome } = require('./controllers/root');
-const { getVideo } = require('./controllers/video');
-const { getVideoSource } = require ('./controllers/video-source');
-const { postBookmarkVideo } = require('./controllers/bookmark-video');
+
+// Config
+const paths = require('./config/paths.config');
+const sessionConfig = require('./config/session.config');
+const expressConfig = require('./config/express.config');
+
+// Controllers
+const homeController = require('./controllers/home.controller');
+const videoController = require('./controllers/video.controller');
+const videoSourceController = require ('./controllers/source.controller');
+const bookmarkController = require('./controllers/bookmark.controller');
 
 // Setup
 const app = express();
@@ -21,10 +25,10 @@ app.set('views', paths.VIEWS);
 app.use(express.static(paths.PUBLIC));
 
 // Routes
-app.get('/', getHome);
-app.get('/video-source/:urlpath', getVideoSource);
-app.get('/video/:urlpath', getVideo);
-app.post('/video/:urlpath/bookmark', postBookmarkVideo);
+app.get('/', homeController.getHome);
+app.get('/source/:urlpath', videoSourceController.getVideoSource);
+app.get('/video/:urlpath', videoController.getVideo);
+app.post('/video/:urlpath/bookmark', bookmarkController.postBookmarkVideo);
 
 // Bootstrap
 app.listen(expressConfig.PORT, () => {
