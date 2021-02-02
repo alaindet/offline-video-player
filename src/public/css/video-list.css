@@ -1,0 +1,37 @@
+.video-list {
+  display: flex;
+  flex-direction: column;
+  padding: 0;
+  list-style-type: none;
+  max-width: 350px;
+}
+.video-item {
+  display: block;
+  border: 2px solid goldenrod;
+  border-radius: 0.25rem;
+  padding: 0.25rem 1rem;
+  margin: 0.33rem 0;
+  cursor: pointer;
+  transition: 0.15s all ease-out;
+  text-decoration: none!important;
+}
+.video-item:hover {
+  background-color: goldenrod;
+}
+.video-item:hover .item-title,
+.video-item:hover .item-duration {
+  color: #333;
+}
+.video-item a {
+  text-decoration: none;
+}
+.item-title {
+  color: gold;
+  font-size: 1.3rem;
+  display: block;
+  margin: 0;
+  margin-bottom: 0.5rem;
+}
+.item-duration {
+  color: white;
+}

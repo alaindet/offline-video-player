@@ -1,0 +1,14 @@
+.video-container {
+  padding: 0.5rem;
+  margin: 0 auto;
+  display: flex;
+  align-items: flex-start;
+}
+
+.video-player {
+  width: 100%;
+  height: 100%;
+  max-width: 85vw;
+  max-height: 90vh;
+  flex-grow: 1;
+}

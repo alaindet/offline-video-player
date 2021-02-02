@@ -1,4 +1,3 @@
-let playbackCurrent = 1.0;
 const PLAYBACK_STEP = 0.25;
 const PLAYBACK_MIN = 0.5;
 const PLAYBACK_MAX = 2.5;
@@ -11,18 +10,7 @@ const selectElements = () => {
     playbackSlower: document.querySelector('#playback-slower'),
     playbackReset: document.querySelector('#playback-reset'),
     playbackFaster: document.querySelector('#playback-faster'),
-    menu: document.querySelector('.menu'),
-    menuOpen: document.querySelector('#menu-open'),
-    menuClose: document.querySelector('.menu-close'),
   };
-};
-
-const onMenuOpen = () => {
-  elements.menu.classList.add('shown');
-};
-
-const onMenuClose = () => {
-  elements.menu.classList.remove('shown');
 };
 
 const updatePlaybackRate = (rate) => {
@@ -49,8 +37,6 @@ const init = () => {
   elements.playbackSlower.addEventListener('click', onPlaybackSlowerClick);
   elements.playbackReset.addEventListener('click', onPlaybackResetClick);
   elements.playbackFaster.addEventListener('click', onPlaybackFasterClick);
-  elements.menuOpen.addEventListener('click', onMenuOpen);
-  elements.menuClose.addEventListener('click', onMenuClose);
 };
 
 document.addEventListener('DOMContentLoaded', init);

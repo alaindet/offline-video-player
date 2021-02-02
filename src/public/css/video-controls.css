@@ -1,0 +1,14 @@
+.video-controls {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: flex-end;
+}
+
+.video-controls > * {
+  margin: 0.5rem 0;
+}
+
+#playback-rate {
+  text-align: center;
+}
