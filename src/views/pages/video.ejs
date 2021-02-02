@@ -32,9 +32,9 @@
     <button class="full-width" id="playback-faster">+ 0.25x</button>
 
     <!-- Bookmark -->
-    <button class="full-width">
-      <a href="/video/<%= nextVideoPath %>/bookmark">Bookmark</a>
-    </button>
+    <form method="post" action="/video/<%= video.urlPath %>/bookmark">
+      <button type="submit" class="full-width">Boomark</button>
+    </form>
 
     <!-- Next -->
     <% if (nextVideoPath) { %>

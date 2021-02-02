@@ -6,8 +6,8 @@
 - [ ] Highlight current video
 - [ ] Put current video title
 - [ ] Fetch alert in video page
-- [ ] Show alert on video page
-- [ ] Create form on video page to bookmark
+- [x] Show alert on video page
+- [x] Create form on video page to bookmark
 - [x] Show time needed to parse videos on parse-videos NPM script
 - [ ] Automatically play next video
 - [x] Use config data
