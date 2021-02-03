@@ -2,8 +2,6 @@ const videosCache = require('../services/videos-cache.service');
 
 const getVideo = (req, res) => {
 
-  const alerts = req.flash('alert');
-
   const videos = videosCache.get();
   const urlPath = req.params.urlpath;
   const videoIndex = videos.findIndex(vid => vid.urlPath === urlPath);
