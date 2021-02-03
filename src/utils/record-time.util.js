@@ -1,7 +1,11 @@
 const asyncRecordTimeInMilliseconds = async (callback) => {
-  const timeStart = new Date();
-  await callback();
-  const timeEnd = new Date();
+  const timeStart = (new Date()).valueOf();
+  try {
+    await callback();
+  } catch (error) {
+    console.error('ERROR', error);
+  }
+  const timeEnd = (new Date()).valueOf();
   return timeEnd - timeStart;
 };
 
@@ -11,9 +15,9 @@ const asyncRecordTimeInSeconds = async (callback) => {
 };
 
 const recordTimeInMilliseconds = (callback) => {
-  const timeStart = new Date();
+  const timeStart = (new Date()).valueOf();
   callback();
-  const timeEnd = new Date();
+  const timeEnd = (new Date()).valueOf();
   return timeEnd - timeStart;
 };
 
