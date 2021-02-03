@@ -1,26 +1,49 @@
 <%#
 # Variables
 - firstVideo
-- bookmark?
+- ?bookmark
+- ?isProgress
 #%>
-
 <%- include('../includes/top.ejs') %>
 
-<h1>Offline Video Player</h1>
+<main class="banners">
 
-<section class="big-link">
-  <a href="/video/<%= firstVideo %>">
+  <section class="banner-separator">
+    <h1>Offline Video Player</h1>
+  </section>
+
+  <!-- Start -->
+  <a href="/video/<%= firstVideo %>" class="banner-action">
     Start with the first video
   </a>
-</section>
 
-<% if (bookmark) { %>
-  <div>or</div>
-  <section class="big-link">
-    <a href="/video/<%= bookmark %>">
+  <!-- Bookmark -->
+  <% if (bookmark) { %>
+    <a href="/video/<%= bookmark %>" class="banner-action">
       Continue from the bookmark
     </a>
+  <% } %>
+
+  <!-- Import -->
+  <section class="banner-action" id="progress-input-banner">
+    Import progress
+    <form
+      class="invisible"
+      method="post"
+      action="/progress"
+      enctype="multipart/form-data"
+    >
+      <input type="file" name="progress-file" id="progress-input">
+    </form>
   </section>
-<% } %>
+
+  <!-- Export -->
+  <% if (isProgress) { %>
+    <a href="/progress" class="banner-action">
+      Export progress
+    </a>
+  <% } %>
+
+</main>
 
 <%- include('../includes/bottom.ejs') %>

@@ -1,7 +1,15 @@
+<%#
+# Variables
+- videos
+- currentVideo
+#%>
 <ul class="video-list">
   <% for (const video of videos) { %>
     <li>
-      <a href="/video/<%= video.urlPath %>" class="video-item">
+      <a
+        href="/video/<%= video.urlPath %>"
+        class="video-item<%= (currentVideo === video.urlPath) ? ' active' : '' %>"
+      >
         <h3 class="item-title"><%= video.name %></h3>
         <em class="item-duration"><%= video.duration %></em>
       </a>

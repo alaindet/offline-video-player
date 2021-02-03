@@ -1,4 +1,4 @@
-function onAlertClose(event) {
+onAlertClose = (event) => {
   event.target.closest('.alert').remove();
 };
 

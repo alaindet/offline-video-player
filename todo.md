@@ -1,13 +1,18 @@
-- [ ] README.md
-- [ ] LICENSE
+- [x] LICENSE
 - [x] Add .gitkeep to cache and videos dirs
-- [ ] Add bookmark feature
-- [ ] Add home link button
-- [ ] Highlight current video
-- [ ] Put current video title
-- [ ] Fetch alert in video page
+- [x] Add bookmark feature
+- [x] Add home link button
+- [x] Highlight current video in menu
+- [x] Put current video title
+- [x] Fetch alert in video page
 - [x] Show alert on video page
 - [x] Create form on video page to bookmark
 - [x] Show time needed to parse videos on parse-videos NPM script
-- [ ] Automatically play next video
+- [x] Automatically play next video
 - [x] Use config data
+- [x] Export `progress.json`
+- [x] Import `progress.json`
+- [x] Fix wrong sorting (ex. `video9.mp4` > `video91.mp4`)
+- [ ] Scroll to current video on "Open menu" click
+- [ ] Fix cold start: missing videos cache file (race condition?)
+- [ ] README.md

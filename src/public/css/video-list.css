@@ -5,6 +5,7 @@
   list-style-type: none;
   max-width: 350px;
 }
+
 .video-item {
   display: block;
   border: 2px solid goldenrod;
@@ -15,16 +16,30 @@
   transition: 0.15s all ease-out;
   text-decoration: none!important;
 }
-.video-item:hover {
+
+.video-item.active {
+  background-color: white;
+  border-color: white;
+  color: #333;
+}
+.video-item.active .item-title,
+.video-item.active .item-duration {
+  color: #333;
+}
+
+.video-item:not(.active):hover {
   background-color: goldenrod;
 }
+
 .video-item:hover .item-title,
 .video-item:hover .item-duration {
   color: #333;
 }
+
 .video-item a {
   text-decoration: none;
 }
+
 .item-title {
   color: gold;
   font-size: 1.3rem;
@@ -32,6 +47,7 @@
   margin: 0;
   margin-bottom: 0.5rem;
 }
+
 .item-duration {
   color: white;
 }

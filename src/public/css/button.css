@@ -1,17 +1,18 @@
 button {
   padding: 0.5rem 1rem;
   border-radius: 0.25rem;
-  background-color: transparent;
-  border: 2px solid goldenrod;
+  background-color: transparent!important;
+  border: 2px solid goldenrod!important;
   color: goldenrod;
   transition: all 0.15s ease-out;
   cursor: pointer;
   margin: 0 1rem;
+  font-size: 1.1rem!important;
 }
 button:hover,
 button:focus {
   outline: none;
-  background-color: goldenrod;
+  background-color: goldenrod!important;
   color: #333;
 }
 .full-width {

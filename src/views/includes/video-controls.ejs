@@ -1,0 +1,51 @@
+<%#
+# Variables
+- ?prevVideoPath
+- ?nextVideoPath
+#%>
+<aside class="video-controls">
+
+  <!-- Menu -->
+  <button class="full-width" id="menu-open">Open menu</button>
+
+  <!-- Prev -->
+  <% if (prevVideoPath) { %>
+    <button class="full-width">
+      <a href="/video/<%= prevVideoPath %>">Prev</a>
+    </button>
+  <% } %>
+
+  <!-- Playback -->
+  <div class="playback-controls">
+    <button class="full-width" id="playback-slower">-</button>
+    <button class="full-width" id="playback-reset">1.00x</button>
+    <button class="full-width" id="playback-faster">+</button>
+  </div>
+
+  <!-- Bookmark -->
+  <form
+    method="post"
+    action="/video/<%= video.urlPath %>/bookmark"
+    class="full-width"
+  >
+    <button type="submit" class="full-width bookmark-control">Boomark</button>
+  </form>
+
+  <!-- Home -->
+  <button class="full-width">
+    <a href="/">Home</a>
+  </button>
+
+  <!-- Download progress -->
+  <button class="full-width">
+    <a href="/progress">Get&nbsp;progress</a>
+  </button>
+
+  <!-- Next -->
+  <% if (nextVideoPath) { %>
+    <button class="full-width">
+      <a href="/video/<%= nextVideoPath %>">Next</a>
+    </button>
+  <% } %>
+
+</aside>

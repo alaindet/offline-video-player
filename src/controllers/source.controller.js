@@ -14,7 +14,7 @@ const getVideoSource = (req, res) => {
   }
 
   const urlPath = req.params.urlpath;
-  const videos = videosCache.read();
+  const videos = videosCache.get();
   const video = videos.find(vid => vid.urlPath === urlPath);
   const videoPath = video.fullPath;
   const videoSize = fs.statSync(videoPath).size;

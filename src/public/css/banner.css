@@ -1,0 +1,41 @@
+.banners {
+  display: flex;
+  flex-direction: column;
+  max-width: 600px;
+  width: 100%;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.banner-action {
+  padding: 2rem;
+  margin: 1rem 0;
+  font-size: 1.5rem;
+  border: 2px solid goldenrod;
+  border-radius: 0.5rem;
+  background-color: transparent;
+  transition: 0.15s all ease-out;
+  cursor: pointer;
+  color: white;
+}
+
+.banner-action a {
+  color: inherit;
+  text-decoration: none;
+}
+
+.banner-action input[type='file'] {
+  margin-left: 6%; /* Ugly trick! */
+  margin-bottom: 1rem;
+}
+
+
+.banner-action:hover {
+  background-color: goldenrod;
+  color: #333;
+}
+
+.banner-separator {
+  margin: 1rem 0;
+  font-size: 1.2rem;
+}

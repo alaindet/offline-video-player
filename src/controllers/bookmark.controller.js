@@ -1,6 +1,6 @@
 const bookmark = require('../services/bookmark.service');
 
-const postBookmarkVideo = (req, res) => {
+const saveBookmark = (req, res) => {
   const urlPath = req.params.urlpath;
   bookmark.set(urlPath);
   req.flash('alert', 'The bookmark has been saved');
@@ -9,5 +9,5 @@ const postBookmarkVideo = (req, res) => {
 };
 
 module.exports = {
-  postBookmarkVideo,
+  saveBookmark,
 };

@@ -1,49 +1,24 @@
 <%#
 # Variables
-- pageTitle
-- videos
 - video
-- prevVideoPath
-- nextVideoPath
+- ?nextVideoPath
 #%>
 <%- include('../includes/top.ejs') %>
 
-<main class="video-container">
+<main class="cinema">
 
-  <video class="video-player" width="90%" controls autoplay>
-    <source src="/source/<%= video.urlPath %>" type="video/mp4">
-  </video>
+  <main class="video-container">
+    <video
+      controls
+      autoplay
+      class="video-player"
+      data-next-video="<%= nextVideoPath ? '/video/' + nextVideoPath : 'no' %>"
+    >
+      <source src="/source/<%= video.urlPath %>" type="video/mp4">
+    </video>
+  </main>
 
-  <div class="video-controls">
-
-    <button class="full-width" id="menu-open">Open menu</button>
-
-    <!-- Prev -->
-    <% if (prevVideoPath) { %>
-      <button class="full-width">
-        <a href="/video/<%= prevVideoPath %>">Prev</a>
-      </button>
-    <% } %>
-
-    <!-- Playback -->
-    <strong class="full-width" id="playback-rate">1.0x</strong>
-    <button class="full-width" id="playback-slower">- 0.25x</button>
-    <button class="full-width" id="playback-reset">1.0x</button>
-    <button class="full-width" id="playback-faster">+ 0.25x</button>
-
-    <!-- Bookmark -->
-    <form method="post" action="/video/<%= video.urlPath %>/bookmark">
-      <button type="submit" class="full-width">Boomark</button>
-    </form>
-
-    <!-- Next -->
-    <% if (nextVideoPath) { %>
-      <button class="full-width">
-        <a href="/video/<%= nextVideoPath %>">Next</a>
-      </button>
-    <% } %>
-
-  </div>
+  <%- include('../includes/video-controls.ejs') %>
 </main>
 
 <aside class="menu">

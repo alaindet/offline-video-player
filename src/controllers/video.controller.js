@@ -4,7 +4,7 @@ const getVideo = (req, res) => {
 
   const alerts = req.flash('alert');
 
-  const videos = videosCache.read();
+  const videos = videosCache.get();
   const urlPath = req.params.urlpath;
   const videoIndex = videos.findIndex(vid => vid.urlPath === urlPath);
 
@@ -15,20 +15,17 @@ const getVideo = (req, res) => {
   }
 
   const video = videos[videoIndex];
-
   const prevVideo = videos[videoIndex - 1];
-  const prevVideoPath = prevVideo ? prevVideo.urlPath : null;
-
   const nextVideo = videos[videoIndex + 1];
-  const nextVideoPath = nextVideo ? nextVideo.urlPath : null;
 
   res.render('pages/video', {
     pageTitle: video.name,
     videos,
-    video,
-    prevVideoPath: prevVideoPath,
-    nextVideoPath: nextVideoPath,
-    alerts,
+    currentVideo: video.urlPath,
+    video: videos[videoIndex],
+    prevVideoPath: prevVideo ? prevVideo.urlPath : null,
+    nextVideoPath: nextVideo ? nextVideo.urlPath : null,
+    alerts: req.flash('alert'),
   });
 };
 
