@@ -14,5 +14,5 @@
 - [x] Import `progress.json`
 - [x] Fix wrong sorting (ex. `video9.mp4` > `video91.mp4`)
 - [ ] Scroll to current video on "Open menu" click
-- [ ] Fix cold start: missing videos cache file (race condition?)
+- [x] Fix cold start: missing videos cache file (race condition?)
 - [ ] README.md
