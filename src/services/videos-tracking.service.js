@@ -8,12 +8,23 @@ const get = () => progress.get(STORE_KEY);
 
 const store = (data) => progress.set(STORE_KEY, data);
 
+const countWatchedVideos = () => {
+  let count = 0;
+  const map = get();
+  for (const key in map) {
+    if (map[key]) {
+      videosWatched++;
+    }
+  }
+  return count;
+};
+
 /**
  * Generates a map of videos based on cached file
  * Initializes all values as false (aka "not seen yet")
  */
 const build = () => {
-  
+
   console.log('Start building videos tracking');
 
   const tracking = {};
@@ -51,4 +62,5 @@ module.exports = {
   build,
   init,
   markVideoAsSeen,
+  countWatchedVideos,
 };
