@@ -1,38 +1,75 @@
-// TODO: Try removing default props
-const markVideoAsSeen = async (url, data) => {
-  const response = await fetch(url, {
-    method: 'PATCH',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify(data),
-    cache: 'no-cache',
-    credentials: 'same-origin',
-    redirect: 'follow',
-    referrerPolicy: 'no-referrer',
-  });
-  return response.json();
-}
+const TRACKING_INTERVAL = 3000;
+let TRACKING_SEEN = 0;
+let TRACKING_TIMER = null;
+let TRACKING_DURATION = 0;
+let TRACKING_THRESHOLD = 0.9;
 
-// TODO: "Almost finished" algorytm
-
-const onTrackClick = async () => {
-  console.log('onTrackClick');
+const markVideoAsSeen = async () => {
   const urlPath = elements.video?.getAttribute('data-current-video');
   const data = { urlPath };
-  const url = '/video/seen';
   try {
-    await markVideoAsSeen(url, data);
+    // TODO: Try removing default props
+    const response = await fetch('/video/seen', {
+      method: 'PATCH',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(data),
+      cache: 'no-cache',
+      credentials: 'same-origin',
+      redirect: 'follow',
+      referrerPolicy: 'no-referrer',
+    });
+    console.log(response.json());
   } catch (error) {
     console.error('HTTP ERROR', error);
   }
-  console.log('response', response);
+}
+
+const checkVideoCompletion = () => {
+
+  // TODO
+  console.log('checking video completion...');
+
+  const increment = TRACKING_INTERVAL / 1000;
+  TRACKING_SEEN += increment;
+  const completion = TRACKING_SEEN / TRACKING_DURATION;
+
+  if (completion > TRACKING_THRESHOLD) {
+    // TODO
+    console.log('mark as seen...');
+  }
 };
+
+const onStopCheckingVideoCompletion = (event) => {
+  console.log('onStopCheckingVideoCompletion', event.type);
+  if (TRACKING_TIMER !== null) {
+    clearInterval(TRACKING_INTERVAL);
+  }
+};
+
+const onStartCheckingVideoCompletion = (event) => {
+  console.log('onStopCheckingVideoCompletion', event.type);
+  if (TRACKING_TIMER !== null) {
+    clearInterval(TRACKING_INTERVAL);
+  }
+  TRACKING_TIMER = setInterval(checkVideoCompletion, TRACKING_INTERVAL);
+};
+
+const initDuration = () => {
+  TRACKING_DURATION = elements.video?.duration;
+}
 
 document.addEventListener('DOMContentLoaded', () => {
 
   selectElements({
     video: document.querySelector('.video-player'),
-    track: document.querySelector('#todo-track'),
   });
 
-  elements.track?.addEventListener('click', onTrackClick);
+  initDuration();
+
+  elements.video?.addEventListener('play', onStartCheckingVideoCompletion);
+  elements.video?.addEventListener('playing', onStartCheckingVideoCompletion);
+  elements.video?.addEventListener('pause', onStopCheckingVideoCompletion);
+  elements.video?.addEventListener('seeking', onStopCheckingVideoCompletion);
+  elements.video?.addEventListener('waiting', onStopCheckingVideoCompletion);
+  elements.video?.addEventListener('waiting', onStopCheckingVideoCompletion);
 });
