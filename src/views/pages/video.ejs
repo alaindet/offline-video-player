@@ -13,6 +13,7 @@
       autoplay
       class="video-player"
       data-next-video="<%= nextVideoPath ? '/video/' + nextVideoPath : 'no' %>"
+      data-current-video="<%= video.urlPath %>"
     >
       <source src="/source/<%= video.urlPath %>" type="video/mp4">
     </video>

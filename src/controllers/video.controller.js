@@ -16,6 +16,13 @@ const getVideo = (req, res) => {
   const video = videos[videoIndex];
   const prevVideo = videos[videoIndex - 1];
   const nextVideo = videos[videoIndex + 1];
+  const videosTrackingMap = videosTracking.get();
+  let videosWatched = 0;
+  for (const key in videosTrackingMap) {
+    if (videosTrackingMap[key]) {
+      videosWatched++;
+    }
+  }
 
   res.render('pages/video', {
     pageTitle: video.name,
@@ -25,7 +32,8 @@ const getVideo = (req, res) => {
     prevVideoPath: prevVideo ? prevVideo.urlPath : null,
     nextVideoPath: nextVideo ? nextVideo.urlPath : null,
     alerts: req.flash('alert'),
-    videosTracking: videosTracking.get(), 
+    videosTracking: videosTrackingMap,
+    videosWatched,
   });
 };
 

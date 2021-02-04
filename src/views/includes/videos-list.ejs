@@ -3,8 +3,13 @@
 - videos
 - videosTracking
 - currentVideo
+- videosWatched
 #%>
 <ul class="video-list">
+  <li class="progress-item">
+    <progress max="<%= videos.length %>" value="<%= videosWatched %>"></progress>
+    <span class="progress-counter"><%= videosWatched %>&nbsp;/&nbsp;<%= videos.length %></span>
+  </li>
   <% for (const video of videos) { %>
     <li>
       <a

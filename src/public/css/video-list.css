@@ -60,16 +60,27 @@
 .video-item.seen {
   background-color: rgba(255,255,255,.1);
   border-color: rgba(255,255,255,.1);;
-  color: rgba(255,255,255,.2);
+  color: rgba(255,255,255,.3);
 }
 
 .video-item.seen:hover {
   background-color: rgba(255,255,255,.2);
   border-color: rgba(255,255,255,.2);;
-  color: rgba(255,255,255,.3);
+  color: rgba(255,255,255,.4);
 }
 
 .video-item.seen .item-title,
 .video-item.seen .item-duration {
-  color: rgba(255,255,255,.2);
+  color: rgba(255,255,255,.4);
+}
+
+.progress-item {
+  display: flex;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+.progress-counter {
+  font-size: 0.8rem;
+  margin-left: 0.5rem;
 }

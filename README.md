@@ -39,7 +39,8 @@ You can pass options to `npm start` like `npm start -- --port=4242`. Options are
 - [x] Fix cold start: missing videos cache file (race condition?)
 - [x] Add tracking feature (CSS class in videos list)
 - [x] Add tracking feature (API endpoint)
-- [ ] Add tracking feature (async call in Browser)
+- [x] Add tracking feature (async call in Browser)
+- [ ] Add tracking feature ("enough video watched" algorytm)
 - [ ] README.md
 - [ ] Add favicon
 - [ ] Add progress bar

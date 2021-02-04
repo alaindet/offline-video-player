@@ -3,6 +3,7 @@ const open = require('open');
 const session = require('express-session');
 const flash = require('connect-flash');
 const cookieParser = require('cookie-parser');
+const cors = require('cors');
 const yargs = require('yargs/yargs');
 const { hideBin } = require('yargs/helpers');
 
@@ -25,20 +26,22 @@ const videosTracking = require('./services/videos-tracking.service');
 // Parse CLI options
 const argv = yargs(hideBin(process.argv)).argv;
 
+// Setup Express
+const app = express();
+app.use(cookieParser(sessionConfig.secret));
+app.use(session(sessionConfig));
+app.use(flash());
+app.use(cors());
+app.set('view engine', 'ejs');
+app.set('views', paths.VIEWS);
+app.use(express.static(paths.PUBLIC));
+app.use(express.json());
+
 (async () => {
 
   // Setup services
   await videosCache.init(!!argv['force-cache']);
   videosTracking.init(!!argv['force-tracking']);
-
-  // Setup Express
-  const app = express();
-  app.use(cookieParser(sessionConfig.secret));
-  app.use(session(sessionConfig));
-  app.use(flash());
-  app.set('view engine', 'ejs');
-  app.set('views', paths.VIEWS);
-  app.use(express.static(paths.PUBLIC));
 
   // Routes
   app.get('/', homeController.getHome);
@@ -47,15 +50,17 @@ const argv = yargs(hideBin(process.argv)).argv;
   app.post('/video/:urlpath/bookmark', bookmarkController.saveBookmark);
   app.post('/progress', progressController.uploadSetup, progressController.importFile);
   app.get('/progress', progressController.exportFile);
-  app.post('/video/:urlpath/seen', trackingController.markAsSeen);
+  app.patch('/video/seen', trackingController.markAsSeen);
 
   // Bootstrap
   const port = argv['port'] || 3000;
-  app.listen(port, () => {
+
+  const bootstrap = () => {
     console.log(`Application started on port ${port}`);
     if (!!argv['open']) {
       open(`http://localhost:${port}`);
     }
-  });
+  };
 
+  app.listen(port, bootstrap);
 })();
