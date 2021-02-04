@@ -1,4 +1,5 @@
 const videosCache = require('../services/videos-cache.service');
+const videosTracking = require('../services/videos-tracking.service');
 
 const getVideo = (req, res) => {
 
@@ -24,6 +25,7 @@ const getVideo = (req, res) => {
     prevVideoPath: prevVideo ? prevVideo.urlPath : null,
     nextVideoPath: nextVideo ? nextVideo.urlPath : null,
     alerts: req.flash('alert'),
+    videosTracking: videosTracking.get(), 
   });
 };
 

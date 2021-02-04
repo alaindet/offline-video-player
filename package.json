@@ -6,7 +6,9 @@
   "scripts": {
     "start": "node ./src/index.js --open",
     "dev": "nodemon ./src/index.js",
-    "parse-videos": "node ./src/scripts/parse-videos.js",
+    "build-cache": "node ./src/scripts/build-cache.js",
+    "build-tracking": "node ./src/scripts/build-tracking.js",
+    "reset": "node ./src/scripts/reset.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "Alain D'Ettorre <alain.det@gmail.com>",

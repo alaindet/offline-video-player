@@ -5,69 +5,57 @@ const flash = require('connect-flash');
 const cookieParser = require('cookie-parser');
 const yargs = require('yargs/yargs');
 const { hideBin } = require('yargs/helpers');
+
+// Import config
 const paths = require('./config/paths.config');
 const sessionConfig = require('./config/session.config');
+
+// Import controllers
 const homeController = require('./controllers/home.controller');
 const videoController = require('./controllers/video.controller');
 const videoSourceController = require ('./controllers/source.controller');
 const bookmarkController = require('./controllers/bookmark.controller');
 const progressController = require('./controllers/progress.controller');
+const trackingController = require('./controllers/tracking.controller');
+
+// Import services
 const videosCache = require('./services/videos-cache.service');
+const videosTracking = require('./services/videos-tracking.service');
 
-// TODO: This recorder works!
-// const someExecutor = (yep: Function, nope: Function) => setTimeout(() => yep(42), 1000);
-// const getTimestamp = () => (new Date()).valueOf();
-// const printPromise = async (): Promise<void> => {
-//     const prom = new Promise(someExecutor);
-//     const result = await prom;
-//     console.log('print promise', result);
-// };
-// const recordTime = async (callback: any): Promise<number> => {
-//     console.log('Starting...');
-//     const start = getTimestamp();
-//     try {
-//         await callback();
-//     } catch (error) {
-//         console.error('ERROR', error);
-//     }
-//     const end = getTimestamp();
-//     const diff: number = end - start;
-//     console.log(`Stopping... ${diff}`);
-//     return diff;
-// };
-// (async () => console.log(
-//     await recordTime(printPromise)
-// ))();
-
-// Setup
+// Parse CLI options
 const argv = yargs(hideBin(process.argv)).argv;
-const app = express();
-app.use(cookieParser(sessionConfig.secret));
-app.use(session(sessionConfig));
-app.use(flash());
-app.set('view engine', 'ejs');
-app.set('views', paths.VIEWS);
-app.use(express.static(paths.PUBLIC));
-videosCache.init();
 
-if (argv['force-parse']) {
-  videosCache.buildCache();
-}
+(async () => {
 
-// Routes
-app.get('/', homeController.getHome);
-app.get('/source/:urlpath', videoSourceController.getVideoSource);
-app.get('/video/:urlpath', videoController.getVideo);
-app.post('/video/:urlpath/bookmark', bookmarkController.saveBookmark);
-app.post('/progress', progressController.uploadSetup, progressController.importFile);
-app.get('/progress', progressController.exportFile);
+  // Setup services
+  await videosCache.init(!!argv['force-cache']);
+  videosTracking.init(!!argv['force-tracking']);
 
-// Bootstrap
-const shouldOpen = !!argv['open'];
-const port = argv['port'] || 3000;
-app.listen(port, () => {
-  console.log(`Application started on port ${port}`);
-  if (shouldOpen) {
-    open(`http://localhost:${port}`);
-  }
-});
+  // Setup Express
+  const app = express();
+  app.use(cookieParser(sessionConfig.secret));
+  app.use(session(sessionConfig));
+  app.use(flash());
+  app.set('view engine', 'ejs');
+  app.set('views', paths.VIEWS);
+  app.use(express.static(paths.PUBLIC));
+
+  // Routes
+  app.get('/', homeController.getHome);
+  app.get('/source/:urlpath', videoSourceController.getVideoSource);
+  app.get('/video/:urlpath', videoController.getVideo);
+  app.post('/video/:urlpath/bookmark', bookmarkController.saveBookmark);
+  app.post('/progress', progressController.uploadSetup, progressController.importFile);
+  app.get('/progress', progressController.exportFile);
+  app.post('/video/:urlpath/seen', trackingController.markAsSeen);
+
+  // Bootstrap
+  const port = argv['port'] || 3000;
+  app.listen(port, () => {
+    console.log(`Application started on port ${port}`);
+    if (!!argv['open']) {
+      open(`http://localhost:${port}`);
+    }
+  });
+
+})();

@@ -9,6 +9,7 @@ const getFileName = require('../utils/get-filename.util');
 const { asyncRecordTimeInSeconds } = require('../utils/record-time.util');
 const toForwardSlash = require('../utils/to-forward-slash.util');
 const toKebabCase = require('../utils/to-kebab-case.util');
+const trimExcessSpaces = require('../utils/trim-excess-spaces.util');
 
 const videosCacheFile = path.join(paths.CACHE, 'videos.json');
 const COMMON_STRIPPABLE_PATH = toForwardSlash(paths.VIDEOS);
@@ -23,30 +24,48 @@ const getVideoPaths = (dir, ext = 'mp4') => {
   return orderBy(fullPaths);
 };
 
-const buildCache = async () => {
+const build = async () => {
+
   if (!isVideosDir()) {
-    throw new Error('/videos directory does not exist, please create it');
+    throw new Error(trimExcessSpaces(`
+      /videos directory does not exist, \
+      please create it
+    `));
   }
-  console.log('Start building videos cache file');
+
+  console.log('Start building videos cache');
+
   const timeTaken = await asyncRecordTimeInSeconds(async () => {
     const files = getVideoPaths(paths.VIDEOS);
     const parsed = await parse(files);
     const outputData = JSON.stringify(parsed);
     fs.writeFileSync(videosCacheFile, outputData);
   });
-  console.log(`Videos cache file built in ${timeTaken} seconds`);
+
+  console.log(`Videos cache file built in ~ ${timeTaken} seconds`);
 };
 
-const init = () => {
-  console.log('Initialize videos cache service');
-  if (!isVideosCacheFile()) {
-    buildCache();
+const init = async (force = false) => {
+
+  console.log('Initialize videos cache');
+
+  if (force || !isVideosCacheFile()) {
+    await build();
+    return;
   }
+
+  console.log(trimExcessSpaces(`
+    Videos cache file already exists, skipping generation \
+    To force generation, run "npm run build-cache"
+  `));
 };
 
 const get = () => {
   if (!isVideosCacheFile()) {
-    throw new Error('Videos cache file does not exist. Run "npm run parse-videos"');
+    throw new Error(trimExcessSpaces(`
+      Videos cache file does not exist. \
+      Run "npm run build-cache" to generate
+    `));
   }
   const rawData = fs.readFileSync(videosCacheFile);
   return JSON.parse(rawData);
@@ -81,6 +100,6 @@ const parse = async (videoPaths) => {
 
 module.exports = {
   init,
-  buildCache,
+  build,
   get,
 };

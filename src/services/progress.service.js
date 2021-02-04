@@ -1,7 +1,7 @@
 const path = require('path');
 const fs = require('fs');
-
 const paths = require('../config/paths.config');
+
 const progressPath = path.join(paths.STORAGE, 'progress.json');
 
 const isProgressFile = () => fs.existsSync(progressPath);
@@ -28,6 +28,7 @@ const set = (key, value) => {
   const data = load();
   data[key] = value;
   store(data);
+  return value;
 };
 
 module.exports = {

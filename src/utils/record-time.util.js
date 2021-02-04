@@ -1,29 +1,29 @@
-const asyncRecordTimeInMilliseconds = async (callback) => {
-  const timeStart = (new Date()).valueOf();
+const timestamp = require('./timestamp.util');
+
+const asyncRecordTimeInMilliseconds = async (fn) => {
+  const start = timestamp();
   try {
-    await callback();
+    await fn();
   } catch (error) {
     console.error('ERROR', error);
   }
-  const timeEnd = (new Date()).valueOf();
-  return timeEnd - timeStart;
+  return timestamp() - start;
 };
 
-const asyncRecordTimeInSeconds = async (callback) => {
-  const milliseconds = await recordTimeInMilliseconds(callback);
-  return Math.round(milliseconds / 1000);
+const asyncRecordTimeInSeconds = async (fn) => {
+  const milliseconds = await asyncRecordTimeInMilliseconds(fn);
+  return Math.ceil(milliseconds / 1000);
 };
 
-const recordTimeInMilliseconds = (callback) => {
-  const timeStart = (new Date()).valueOf();
-  callback();
-  const timeEnd = (new Date()).valueOf();
-  return timeEnd - timeStart;
+const recordTimeInMilliseconds = (fn) => {
+  const start = timestamp();
+  fn();
+  return timestamp() - start;
 };
 
-const recordTimeinSeconds = (callback) => {
-  const milliseconds = recordTimeInMilliseconds(callback);
-  return Math.round(milliseconds / 1000);
+const recordTimeinSeconds = (fn) => {
+  const milliseconds = recordTimeInMilliseconds(fn);
+  return Math.ceil(milliseconds / 1000);
 };
 
 module.exports = {

@@ -8,6 +8,7 @@
 
 .video-item {
   display: block;
+  background-color: transparent;
   border: 2px solid goldenrod;
   border-radius: 0.25rem;
   padding: 0.25rem 1rem;
@@ -17,17 +18,7 @@
   text-decoration: none!important;
 }
 
-.video-item.active {
-  background-color: white;
-  border-color: white;
-  color: #333;
-}
-.video-item.active .item-title,
-.video-item.active .item-duration {
-  color: #333;
-}
-
-.video-item:not(.active):hover {
+.video-item:hover {
   background-color: goldenrod;
 }
 
@@ -50,4 +41,35 @@
 
 .item-duration {
   color: white;
+}
+
+/* Active */
+.video-item.active,
+.video-item.active:hover {
+  background-color: white;
+  border-color: white;
+  color: #333;
+}
+
+.video-item.active .item-title,
+.video-item.active .item-duration {
+  color: #333;
+}
+
+/* Seen */
+.video-item.seen {
+  background-color: rgba(255,255,255,.1);
+  border-color: rgba(255,255,255,.1);;
+  color: rgba(255,255,255,.2);
+}
+
+.video-item.seen:hover {
+  background-color: rgba(255,255,255,.2);
+  border-color: rgba(255,255,255,.2);;
+  color: rgba(255,255,255,.3);
+}
+
+.video-item.seen .item-title,
+.video-item.seen .item-duration {
+  color: rgba(255,255,255,.2);
 }
