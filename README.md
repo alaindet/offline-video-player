@@ -40,8 +40,10 @@ You can pass options to `npm start` like `npm start -- --port=4242`. Options are
 - [x] Add tracking feature (CSS class in videos list)
 - [x] Add tracking feature (API endpoint)
 - [x] Add tracking feature (async call in Browser)
-- [ ] Add tracking feature ("enough video watched" algorytm)
+- [x] Add tracking feature ("enough video watched" algorytm)
 - [ ] README.md
 - [ ] Add favicon
 - [ ] Add progress bar
 - [ ] Add CHANGELOG.md
+- [ ] Add "Philosophy and Known Limitations" section to README.md
+- [ ] Add "last seen video" feature

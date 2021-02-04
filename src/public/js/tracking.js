@@ -1,62 +1,45 @@
-const TRACKING_INTERVAL = 3000;
-let TRACKING_SEEN = 0;
+const TRACKING_INTERVAL = 1000;
+const TRACKING_THRESHOLD = 0.9;
 let TRACKING_TIMER = null;
-let TRACKING_DURATION = 0;
-let TRACKING_THRESHOLD = 0.9;
 
 const markVideoAsSeen = async () => {
   const urlPath = elements.video?.getAttribute('data-current-video');
   const data = { urlPath };
-  try {
-    // TODO: Try removing default props
-    const response = await fetch('/video/seen', {
-      method: 'PATCH',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(data),
-      cache: 'no-cache',
-      credentials: 'same-origin',
-      redirect: 'follow',
-      referrerPolicy: 'no-referrer',
-    });
-    console.log(response.json());
-  } catch (error) {
-    console.error('HTTP ERROR', error);
-  }
+  await fetch('/video/seen', {
+    method: 'PATCH',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(data),
+  });
 }
 
 const checkVideoCompletion = () => {
-
-  // TODO
-  console.log('checking video completion...');
-
-  const increment = TRACKING_INTERVAL / 1000;
-  TRACKING_SEEN += increment;
-  const completion = TRACKING_SEEN / TRACKING_DURATION;
+  const currentTime = elements.video.currentTime;
+  const duration = elements.video.duration;
+  const completion = currentTime / duration;
 
   if (completion > TRACKING_THRESHOLD) {
-    // TODO
-    console.log('mark as seen...');
+    markVideoAsSeen();
+  }
+};
+
+const startTimer = () => {
+  TRACKING_TIMER = setInterval(() => checkVideoCompletion(), TRACKING_INTERVAL);
+};
+
+const stopTimer = () => {
+  if (TRACKING_TIMER !== null) {
+    clearInterval(TRACKING_TIMER);
   }
 };
 
 const onStopCheckingVideoCompletion = (event) => {
-  console.log('onStopCheckingVideoCompletion', event.type);
-  if (TRACKING_TIMER !== null) {
-    clearInterval(TRACKING_INTERVAL);
-  }
+  stopTimer();
 };
 
 const onStartCheckingVideoCompletion = (event) => {
-  console.log('onStopCheckingVideoCompletion', event.type);
-  if (TRACKING_TIMER !== null) {
-    clearInterval(TRACKING_INTERVAL);
-  }
-  TRACKING_TIMER = setInterval(checkVideoCompletion, TRACKING_INTERVAL);
+  stopTimer();
+  startTimer();
 };
-
-const initDuration = () => {
-  TRACKING_DURATION = elements.video?.duration;
-}
 
 document.addEventListener('DOMContentLoaded', () => {
 
@@ -64,12 +47,10 @@ document.addEventListener('DOMContentLoaded', () => {
     video: document.querySelector('.video-player'),
   });
 
-  initDuration();
-
   elements.video?.addEventListener('play', onStartCheckingVideoCompletion);
   elements.video?.addEventListener('playing', onStartCheckingVideoCompletion);
   elements.video?.addEventListener('pause', onStopCheckingVideoCompletion);
   elements.video?.addEventListener('seeking', onStopCheckingVideoCompletion);
   elements.video?.addEventListener('waiting', onStopCheckingVideoCompletion);
-  elements.video?.addEventListener('waiting', onStopCheckingVideoCompletion);
+  elements.video?.addEventListener('abort', onStopCheckingVideoCompletion);
 });
