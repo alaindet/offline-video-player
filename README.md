@@ -32,7 +32,7 @@ You can pass options to `npm start` (ex.: `npm start -- --port=4242`)
 - [ ] Scroll to current video on "Open menu" click
 - [ ] Add complete README.md
 - [ ] Add CHANGELOG.md
-- [ ] Add favicon
+- [x] Add favicon
 - [ ] Add "Philosophy and Known Limitations" section to README.md
 - [ ] Add "last seen video" feature
 - [ ] Allow currentTime as query param in /video/:video
