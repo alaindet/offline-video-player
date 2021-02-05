@@ -3,10 +3,12 @@
 - ?alerts
 #%>
 <div class="alerts">
-  <% for (const alert of alerts) { %>
-    <div class="alert">
-      <span class="alert-content"><%= alert %></span>
-      <button class="alert-close">&times;</button>
-    </div>
+  <% if (locals.alerts) { %>
+    <% for (const alert of alerts) { %>
+      <div class="alert">
+        <span class="alert-content"><%= alert %></span>
+        <button class="alert-close">&times;</button>
+      </div>
+    <% } %>
   <% } %>
 </div>

@@ -5,9 +5,9 @@ const buildViewData = (req) => {
 
   const videos = videosCache.get();
   const urlPath = req.params.urlpath;
-  const videosIndex = videos.findIndex(v => v.urlPath === urlPath);
+  const videoIndex = videos.findIndex(v => v.urlPath === urlPath);
 
-  if (videosIndex === -1) {
+  if (videoIndex === -1) {
     throw new Error(`Video with path ${urlPath} not found`);
   }
 
@@ -25,7 +25,7 @@ const buildViewData = (req) => {
     prevVideoPath: prevVideo ? prevVideo.urlPath : null,
     nextVideoPath: nextVideo ? nextVideo.urlPath : null,
     videosTracking: videosTrackingMap,
-    videosWatched: videoTracking.countWatchedVideos(),
+    videosWatched: videosTracking.countWatchedVideos(),
   };
 };
 
@@ -34,8 +34,9 @@ const getVideo = (req, res) => {
     data = buildViewData(req);
     res.render('pages/video', data);
   } catch (error) {
+    console.error('ERROR', error);
     const message = error.message;
-    return res.status(404).send({ message });
+    return res.status(404).render('pages/404', { message });
   }
 };
 

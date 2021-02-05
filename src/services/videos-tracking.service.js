@@ -13,7 +13,7 @@ const countWatchedVideos = () => {
   const map = get();
   for (const key in map) {
     if (map[key]) {
-      videosWatched++;
+      count++;
     }
   }
   return count;
