@@ -1,6 +1,6 @@
 const videoTracking = require('../services/videos-tracking.service');
 
-const markAsSeen = (req, res) => {
+const markVideoAsSeen = (req, res) => {
   const urlPath = req.body.urlPath;
   videoTracking.markVideoAsSeen(urlPath);
   const message = `Video with id ${urlPath} has been marked as "seen"`;
@@ -8,5 +8,5 @@ const markAsSeen = (req, res) => {
 };
 
 module.exports = {
-  markAsSeen,
+  markVideoAsSeen,
 };

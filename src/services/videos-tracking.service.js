@@ -1,5 +1,6 @@
 const progress = require('./progress.service');
 const videosCache = require('./videos-cache.service');
+const lastSeenVideo = require('./last-seen-video.service');
 const trimExcessSpaces = require('../utils/trim-excess-spaces.util');
 
 const STORE_KEY = 'videos-tracking';
@@ -39,6 +40,7 @@ const build = () => {
 const markVideoAsSeen = (urlPath) => {
   const tracking = get();
   tracking[urlPath] = true;
+  lastSeenVideo.set(urlPath);
   return store(tracking);
 };
 

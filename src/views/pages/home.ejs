@@ -17,6 +17,13 @@
     Start with the first video
   </a>
 
+  <!-- Last seen video -->
+  <% if (lastSeenVideo) { %>
+    <a href="/video/<%= lastSeenVideo %>" class="banner-action">
+      Continue from last seen
+    </a>
+  <% } %>
+
   <!-- Bookmark -->
   <% if (bookmark) { %>
     <a href="/video/<%= bookmark %>" class="banner-action">

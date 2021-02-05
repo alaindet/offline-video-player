@@ -34,5 +34,5 @@ You can pass options to `npm start` (ex.: `npm start -- --port=4242`)
 - [ ] Add CHANGELOG.md
 - [x] Add favicon
 - [ ] Add "Philosophy and Known Limitations" section to README.md
-- [ ] Add "last seen video" feature
+- [x] Add "last seen video" feature
 - [ ] Use https://www.npmjs.com/package/lowdb

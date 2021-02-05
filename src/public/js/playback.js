@@ -30,7 +30,6 @@
     }
   };
 
-
   APP.registerElements({
     video: document.querySelector('.video-player'),
     playbackSlower: document.querySelector('#playback-slower'),

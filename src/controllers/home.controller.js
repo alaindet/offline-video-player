@@ -1,6 +1,7 @@
 const progress = require('../services/progress.service');
 const videosCache = require('../services/videos-cache.service');
 const bookmark = require('../services/bookmark.service');
+const lastSeenVideo = require('../services/last-seen-video.service');
 
 const getHome = (req, res) => {
   const videos = videosCache.get();
@@ -10,6 +11,7 @@ const getHome = (req, res) => {
     alerts: req.flash('alert'),
     bookmark: bookmark.get(),
     isProgress: progress.isProgressFile(),
+    lastSeenVideo: lastSeenVideo.get(),
   });
 };
 

@@ -50,7 +50,7 @@ app.use(express.json());
   app.post('/video/:urlpath/bookmark', bookmarkController.saveBookmark);
   app.post('/progress', progressController.uploadSetup, progressController.importFile);
   app.get('/progress', progressController.exportFile);
-  app.patch('/video/seen', trackingController.markAsSeen);
+  app.patch('/video/seen', trackingController.markVideoAsSeen);
 
   // Bootstrap
   const port = argv['port'] || 3000;
