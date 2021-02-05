@@ -49,12 +49,12 @@
 
 
   APP.registerCallback(() => {
-    elements.video?.addEventListener('play', onStartCheckingVideoCompletion);
-    elements.video?.addEventListener('playing', onStartCheckingVideoCompletion);
-    elements.video?.addEventListener('pause', onStopCheckingVideoCompletion);
-    elements.video?.addEventListener('seeking', onStopCheckingVideoCompletion);
-    elements.video?.addEventListener('waiting', onStopCheckingVideoCompletion);
-    elements.video?.addEventListener('abort', onStopCheckingVideoCompletion);
+    APP.elements.video?.addEventListener('play', onStartCheckingVideoCompletion);
+    APP.elements.video?.addEventListener('playing', onStartCheckingVideoCompletion);
+    APP.elements.video?.addEventListener('pause', onStopCheckingVideoCompletion);
+    APP.elements.video?.addEventListener('seeking', onStopCheckingVideoCompletion);
+    APP.elements.video?.addEventListener('waiting', onStopCheckingVideoCompletion);
+    APP.elements.video?.addEventListener('abort', onStopCheckingVideoCompletion);
   });
 
 })();

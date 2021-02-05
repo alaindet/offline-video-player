@@ -9,7 +9,7 @@
   });
 
   APP.registerCallback(() => {
-    APP.elements?.alert.addEventListener('click', onAlertClose);
+    APP.elements.alert?.addEventListener('click', onAlertClose);
   });
 
 })();

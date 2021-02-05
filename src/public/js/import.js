@@ -19,9 +19,9 @@
   });
 
   APP.registerCallback(() => {
-    elements.progressInput?.addEventListener('change', onProgressInputChange);
-    elements.progressInput?.addEventListener('click', onProgressInputClick);
-    elements.progressBanner?.addEventListener('click', onProgressBannerClick);
+    APP.elements.progressInput?.addEventListener('change', onProgressInputChange);
+    APP.elements.progressInput?.addEventListener('click', onProgressInputClick);
+    APP.elements.progressBanner?.addEventListener('click', onProgressBannerClick);
   });
 
 })();

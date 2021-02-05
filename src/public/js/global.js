@@ -1,18 +1,14 @@
 const APP = {
   elements: {},
-  callback: [],
+  callbacks: [],
 };
 
 APP.registerElements = (elements) => {
-  for (const key in new elements) {
-    if (!APP.elements[key]) {
-      APP.elements[key] = elements[key];
-    }
-  }
+  APP.elements = { ...APP.elements, ...elements };
 };
 
 APP.registerCallback = (callback) => {
-  APP.callback.push(callback);
+  APP.callbacks = [...APP.callbacks, callback];
 };
 
 document.addEventListener('DOMContentLoaded', () => {

@@ -39,10 +39,10 @@
   });
 
   APP.registerCallback(() => {
-    elements.video?.addEventListener('ended', onVideoEnded);
-    elements.playbackSlower?.addEventListener('click', onPlaybackSlowerClick);
-    elements.playbackReset?.addEventListener('click', onPlaybackResetClick);
-    elements.playbackFaster?.addEventListener('click', onPlaybackFasterClick);
+    APP.elements.video?.addEventListener('ended', onVideoEnded);
+    APP.elements.playbackSlower?.addEventListener('click', onPlaybackSlowerClick);
+    APP.elements.playbackReset?.addEventListener('click', onPlaybackResetClick);
+    APP.elements.playbackFaster?.addEventListener('click', onPlaybackFasterClick);
   });
 
 })();

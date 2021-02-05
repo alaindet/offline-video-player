@@ -15,8 +15,8 @@
   });
 
   APP.registerCallback(() => {
-    elements.menuOpen?.addEventListener('click', onMenuOpen);
-    elements.menuClose?.addEventListener('click', onMenuClose);
+    APP.elements.menuOpen?.addEventListener('click', onMenuOpen);
+    APP.elements.menuClose?.addEventListener('click', onMenuClose);
   });
 
 })();
