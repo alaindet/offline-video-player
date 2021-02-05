@@ -35,6 +35,4 @@ You can pass options to `npm start` (ex.: `npm start -- --port=4242`)
 - [x] Add favicon
 - [ ] Add "Philosophy and Known Limitations" section to README.md
 - [ ] Add "last seen video" feature
-- [ ] Allow currentTime as query param in /video/:video
-- [ ] Use currentTime when bookmarking
 - [ ] Use https://www.npmjs.com/package/lowdb
