@@ -1,24 +1,27 @@
-const onProgressInputChange = (event) => {
-  event.target.closest('form').submit();
-};
+(() => {
 
-const onProgressInputClick = (event) => {
-  event.stopPropagation();
-};
+  const onProgressInputChange = (event) => {
+    event.target.closest('form').submit();
+  };
 
-const onProgressBannerClick = (event) => {
-  event.stopPropagation();
-  elements.progressInput.click();
-};
+  const onProgressInputClick = (event) => {
+    event.stopPropagation();
+  };
 
-document.addEventListener('DOMContentLoaded', () => {
+  const onProgressBannerClick = (event) => {
+    event.stopPropagation();
+    APP.elements.progressInput.click();
+  };
 
-  selectElements({
+  APP.registerElements({
     progressInput: document.querySelector('#progress-input'),
     progressBanner: document.querySelector('#progress-input-banner'),
   });
 
-  elements.progressInput?.addEventListener('change', onProgressInputChange);
-  elements.progressInput?.addEventListener('click', onProgressInputClick);
-  elements.progressBanner?.addEventListener('click', onProgressBannerClick);
-});
+  APP.registerCallback(() => {
+    elements.progressInput?.addEventListener('change', onProgressInputChange);
+    elements.progressInput?.addEventListener('click', onProgressInputClick);
+    elements.progressBanner?.addEventListener('click', onProgressBannerClick);
+  });
+
+})();

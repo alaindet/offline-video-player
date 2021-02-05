@@ -1,19 +1,22 @@
-const onMenuOpen = () => {
-  elements.menu.classList.add('shown');
-};
+(() => {
 
-const onMenuClose = () => {
-  elements.menu.classList.remove('shown');
-};
+  const onMenuOpen = () => {
+    APP.elements.menu.classList.add('shown');
+  };
 
-document.addEventListener('DOMContentLoaded', () => {
+  const onMenuClose = () => {
+    APP.elements.menu.classList.remove('shown');
+  };
 
-  selectElements({
+  APP.registerElements({
     menu: document.querySelector('.menu'),
     menuOpen: document.querySelector('#menu-open'),
     menuClose: document.querySelector('.menu-close'),
   });
 
-  elements.menuOpen?.addEventListener('click', onMenuOpen);
-  elements.menuClose?.addEventListener('click', onMenuClose);
-});
+  APP.registerCallback(() => {
+    elements.menuOpen?.addEventListener('click', onMenuOpen);
+    elements.menuClose?.addEventListener('click', onMenuClose);
+  });
+
+})();

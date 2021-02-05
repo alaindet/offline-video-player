@@ -1,44 +1,48 @@
-const PLAYBACK_STEP = 0.25;
-const PLAYBACK_MIN = 0.5;
-const PLAYBACK_MAX = 3.0;
+(() => {
 
-const updatePlaybackRate = (rate) => {
-  elements.video.playbackRate = rate;
-  elements.playbackReset.innerHTML = Number(rate).toFixed(2) + 'x';
-};
+  const PLAYBACK_STEP = 0.25;
+  const PLAYBACK_MIN = 0.5;
+  const PLAYBACK_MAX = 3.0;
 
-const onPlaybackSlowerClick = () => {
-  const rate = elements.video.playbackRate;
-  updatePlaybackRate(Math.max(rate - 0.25, PLAYBACK_MIN));
-};
+  const updatePlaybackRate = (rate) => {
+    APP.elements.video.playbackRate = rate;
+    APP.elements.playbackReset.innerHTML = Number(rate).toFixed(2) + 'x';
+  };
 
-const onPlaybackResetClick = () => {
-  updatePlaybackRate(1.0);
-};
+  const onPlaybackSlowerClick = () => {
+    const rate = APP.elements.video.playbackRate;
+    updatePlaybackRate(Math.max(rate - PLAYBACK_STEP, PLAYBACK_MIN));
+  };
 
-const onPlaybackFasterClick = () => {
-  const rate = elements.video.playbackRate;
-  updatePlaybackRate(Math.min(rate + 0.25, PLAYBACK_MAX));
-};
+  const onPlaybackResetClick = () => {
+    updatePlaybackRate(1.0);
+  };
 
-const onVideoEnded = (event) => {
-  const nextVideo = event.target.getAttribute('data-next-video');
-  if (nextVideo !== 'no') {
-    window.location = nextVideo;
-  }
-};
+  const onPlaybackFasterClick = () => {
+    const rate = APP.elements.video.playbackRate;
+    updatePlaybackRate(Math.min(rate + PLAYBACK_STEP, PLAYBACK_MAX));
+  };
 
-document.addEventListener('DOMContentLoaded', () => {
+  const onVideoEnded = (event) => {
+    const nextVideo = event.target.getAttribute('data-next-video');
+    if (nextVideo !== 'no') {
+      window.location = nextVideo;
+    }
+  };
 
-  selectElements({
+
+  APP.registerElements({
     video: document.querySelector('.video-player'),
     playbackSlower: document.querySelector('#playback-slower'),
     playbackReset: document.querySelector('#playback-reset'),
     playbackFaster: document.querySelector('#playback-faster'),
   });
 
-  elements.video?.addEventListener('ended', onVideoEnded);
-  elements.playbackSlower?.addEventListener('click', onPlaybackSlowerClick);
-  elements.playbackReset?.addEventListener('click', onPlaybackResetClick);
-  elements.playbackFaster?.addEventListener('click', onPlaybackFasterClick);
-});
+  APP.registerCallback(() => {
+    elements.video?.addEventListener('ended', onVideoEnded);
+    elements.playbackSlower?.addEventListener('click', onPlaybackSlowerClick);
+    elements.playbackReset?.addEventListener('click', onPlaybackResetClick);
+    elements.playbackFaster?.addEventListener('click', onPlaybackFasterClick);
+  });
+
+})();

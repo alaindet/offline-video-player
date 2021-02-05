@@ -1,12 +1,15 @@
-onAlertClose = (event) => {
-  event.target.closest('.alert').remove();
-};
+(() => {
 
-document.addEventListener('DOMContentLoaded', () => {
+  const onAlertClose = (event) => {
+    event.target.closest('.alert').remove();
+  };
 
-  selectElements({
+  APP.registerElements({
     alert: document.querySelector('.alert'),
   });
 
-  elements.alert?.addEventListener('click', onAlertClose);
-});
+  APP.registerCallback(() => {
+    APP.elements?.alert.addEventListener('click', onAlertClose);
+  });
+
+})();
