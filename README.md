@@ -14,6 +14,11 @@ Offline Video Player is admittedly a specific solution to a specific problem, so
 - No build pipeline, no concatenation, no minification for frontend assets (CSS and JS)
 
 
+## Requirements
+
+- Node.js version 12+ installed (https://nodejs.org/it/download/)
+
+
 ## Usage
 
 1. Install
