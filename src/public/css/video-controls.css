@@ -1,5 +1,5 @@
 .video-controls {
-  padding: 2rem;
+  padding: 2rem 1.5rem;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -13,22 +13,21 @@
   text-align: center;
 }
 
-.playback-controls {
+.inline-buttons {
   display: flex;
   justify-content: space-between;
   width: 100%;
 }
-.playback-controls button {
+.inline-buttons button {
+  width: 100%;
   margin: 0 0.25rem;
   padding: 0.66rem 1.2rem;
 }
-.playback-controls button:first-of-type {
+.inline-buttons button:first-of-type,
+.inline-buttons a:first-of-type {
   margin-left: 0;
 }
-.playback-controls button:last-of-type {
+.inline-buttons button:last-of-type,
+.inline-buttons a:last-of-type {
   margin-right: 0;
-}
-
-.bookmark-control {
-  margin: 0;
 }

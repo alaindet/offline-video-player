@@ -16,40 +16,43 @@
   </a>
 
   <!-- Playback -->
-  <div class="playback-controls">
+  <div class="inline-buttons">
     <button class="btn btn-default full-width" id="playback-slower">-</button>
     <button class="btn btn-default full-width" id="playback-reset">1.00x</button>
     <button class="btn btn-default full-width" id="playback-faster">+</button>
   </div>
 
   <!-- Bookmark -->
-  <form
-    method="post"
-    action="/video/<%= video.urlPath %>/bookmark"
-    class="full-width"
-  >
-    <button type="submit" class="full-width bookmark-control btn btn-default">
-      Boomark
-    </button>
-  </form>
+  <button class="full-width btn btn-default" id="bookmark">
+    Bookmark
+  </button>
+
+  <!-- Mark as seen -->
+  <button class="full-width btn btn-default" id="mark-as-seen">
+    Mark&nbsp;as&nbsp;seen
+  </button>
 
   <!-- Download progress -->
   <a href="/progress" class="full-width btn btn-default">
     Export&nbsp;progress
   </a>
 
-  <!-- Prev -->
-  <% if (prevVideoPath) { %>
-    <a href="/video/<%= prevVideoPath %>" class="full-width btn btn-default">
-      Prev
-    </a>
-  <% } %>
+  <div class="inline-buttons">
 
-  <!-- Next -->
-  <% if (nextVideoPath) { %>
-    <a href="/video/<%= nextVideoPath %>" class="full-width btn btn-default">
-      Next
-    </a>
-  <% } %>
+    <!-- Prev -->
+    <a
+      href="/video/<%= prevVideoPath %>"
+      class="full-width btn btn-default"
+      <%= !prevVideoPath ? 'disabled' : '' %>
+    >Prev</a>
+
+    <!-- Next -->
+    <a
+      href="/video/<%= nextVideoPath %>"
+      class="full-width btn btn-default"
+      <%= !nextVideoPath ? 'disabled' : '' %>
+    >Next</a>
+
+  </div>
 
 </aside>

@@ -30,18 +30,18 @@
     }
   };
 
-  APP.registerElements({
-    video: document.querySelector('.video-player'),
-    playbackSlower: document.querySelector('#playback-slower'),
-    playbackReset: document.querySelector('#playback-reset'),
-    playbackFaster: document.querySelector('#playback-faster'),
+  APP.registerSelectors({
+    video: '.video-player',
+    playbackSlower: '#playback-slower',
+    playbackReset: '#playback-reset',
+    playbackFaster: '#playback-faster',
   });
 
-  APP.registerCallback(() => {
-    APP.elements.video?.addEventListener('ended', onVideoEnded);
-    APP.elements.playbackSlower?.addEventListener('click', onPlaybackSlowerClick);
-    APP.elements.playbackReset?.addEventListener('click', onPlaybackResetClick);
-    APP.elements.playbackFaster?.addEventListener('click', onPlaybackFasterClick);
-  });
+  APP.registerEventHandlers([
+    { element: 'video', event: 'ended', handler: onVideoEnded },
+    { element: 'playbackSlower', event: 'click', handler: onPlaybackSlowerClick },
+    { element: 'playbackReset', event: 'click', handler: onPlaybackResetClick },
+    { element: 'playbackFaster', event: 'click', handler: onPlaybackFasterClick },
+  ]);
 
 })();

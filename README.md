@@ -16,7 +16,7 @@ Offline Video Player is admittedly a specific solution to a specific problem, so
 
 ## Requirements
 
-- Node.js version 12+ installed (https://nodejs.org/it/download/)
+- Node.js version 12+ installed, [Download here](https://nodejs.org/it/download/)
 
 
 ## Usage
@@ -57,7 +57,3 @@ Options are
 - `npm run build-cache` Reset (if needed) and build the videos cache file
 - `npm run build-tracking` Reset (if needed) and build the videos tracking feature
 - `npm run reset` Reset all generated files (WARNING: Deletes progress)
-
-## Todo
-- [ ] Scroll to current video on "Open menu" click
-- [ ] Use https://www.npmjs.com/package/lowdb

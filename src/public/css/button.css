@@ -28,6 +28,14 @@
   color: #333;
 }
 
+.btn:disabled,
+.btn[disabled] {
+  pointer-events: none;
+  background-color: rgba(255,255,255,.1);
+  border-color: rgba(255,255,255,.1);;
+  color: rgba(255,255,255,.3);
+}
+
 .full-width {
   width: 100%;
 }

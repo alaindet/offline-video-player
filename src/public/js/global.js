@@ -1,18 +1,53 @@
 const APP = {
   elements: {},
-  callbacks: [],
+  selectors: {},
+  eventHandlers: [],
+  rootEventHandlers: [],
 };
 
-APP.registerElements = (elements) => {
-  APP.elements = { ...APP.elements, ...elements };
+APP.registerSelectors = (selectors) => {
+  APP.selectors = { ...APP.selectors, ...selectors };
 };
 
-APP.registerCallback = (callback) => {
-  APP.callbacks = [...APP.callbacks, callback];
+APP.registerEventHandlers = (eventHandlers) => {
+  APP.eventHandlers = [...APP.eventHandlers, ...eventHandlers];
+};
+
+APP.registerRootEventHandlers = (rootEventHandlers) => {
+  APP.rootEventHandlers = [...APP.rootEventHandlers, ...rootEventHandlers];
+};
+
+const initSelectors = () => {
+  for (const key in APP.selectors) {
+    const selector = APP.selectors[key];
+    APP.elements[key] = document.querySelector(selector);
+  }
+};
+
+const initRootEventHandlers = () => {
+  for (const rootEventHandler of APP.rootEventHandlers) {
+    const { selector, event, handler } = rootEventHandler;
+    document.addEventListener(event, (docEvent) => {
+      const element = docEvent.target;
+      if (element.matches(selector)) {
+        handler(docEvent);
+      }
+    });
+  }
+};
+
+const initEventHandlers = () => {
+  for (const eventHandler of APP.eventHandlers) {
+    const { element, event, handler } = eventHandler;
+    const targetElement = APP.elements[element];
+    if (targetElement) {
+      targetElement.addEventListener(event, handler);
+    }
+  }
 };
 
 document.addEventListener('DOMContentLoaded', () => {
-  for (const callback of APP.callbacks) {
-    callback();
-  }
+  initSelectors();
+  initRootEventHandlers();
+  initEventHandlers();
 });

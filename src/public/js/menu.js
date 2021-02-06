@@ -8,15 +8,15 @@
     APP.elements.menu.classList.remove('shown');
   };
 
-  APP.registerElements({
-    menu: document.querySelector('.menu'),
-    menuOpen: document.querySelector('#menu-open'),
-    menuClose: document.querySelector('.menu-close'),
+  APP.registerSelectors({
+    menu: '.menu',
+    menuOpen: '#menu-open',
+    menuClose: '.menu-close',
   });
 
-  APP.registerCallback(() => {
-    APP.elements.menuOpen?.addEventListener('click', onMenuOpen);
-    APP.elements.menuClose?.addEventListener('click', onMenuClose);
-  });
+  APP.registerEventHandlers([
+    { element: 'menuOpen', event: 'click', handler: onMenuOpen },
+    { element: 'menuClose', event: 'click', handler: onMenuClose },
+  ]);
 
 })();

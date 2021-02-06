@@ -13,15 +13,15 @@
     APP.elements.progressInput.click();
   };
 
-  APP.registerElements({
-    progressInput: document.querySelector('#progress-input'),
-    progressBanner: document.querySelector('#progress-input-banner'),
+  APP.registerSelectors({
+    progressInput: '#progress-input',
+    progressBanner: '#progress-input-banner',
   });
 
-  APP.registerCallback(() => {
-    APP.elements.progressInput?.addEventListener('change', onProgressInputChange);
-    APP.elements.progressInput?.addEventListener('click', onProgressInputClick);
-    APP.elements.progressBanner?.addEventListener('click', onProgressBannerClick);
-  });
+  APP.registerEventHandlers([
+    { element: 'progressInput', event: 'change', handler: onProgressInputChange },
+    { element: 'progressInput', event: 'click', handler: onProgressInputClick },
+    { element: 'progressBanner', event: 'click', handler: onProgressBannerClick },
+  ]);
 
 })();
