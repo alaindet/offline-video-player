@@ -4,13 +4,15 @@
   const PLAYBACK_MIN = 0.5;
   const PLAYBACK_MAX = 3.0;
 
+  const getPlaybackRate = () => APP.elements.video.playbackRate;
+
   const updatePlaybackRate = (rate) => {
     APP.elements.video.playbackRate = rate;
     APP.elements.playbackReset.innerHTML = Number(rate).toFixed(2) + 'x';
   };
 
   const onPlaybackSlowerClick = () => {
-    const rate = APP.elements.video.playbackRate;
+    const rate = getPlaybackRate();
     updatePlaybackRate(Math.max(rate - PLAYBACK_STEP, PLAYBACK_MIN));
   };
 
@@ -19,7 +21,7 @@
   };
 
   const onPlaybackFasterClick = () => {
-    const rate = APP.elements.video.playbackRate;
+    const rate = getPlaybackRate();
     updatePlaybackRate(Math.min(rate + PLAYBACK_STEP, PLAYBACK_MAX));
   };
 
