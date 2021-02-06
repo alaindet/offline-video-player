@@ -10,6 +10,7 @@ const { asyncRecordTimeInSeconds } = require('../utils/record-time.util');
 const toForwardSlash = require('../utils/to-forward-slash.util');
 const toKebabCase = require('../utils/to-kebab-case.util');
 const trimExcessSpaces = require('../utils/trim-excess-spaces.util');
+const log = require('../utils/log.util');
 
 const videosCacheFile = path.join(paths.CACHE, 'videos.json');
 const COMMON_STRIPPABLE_PATH = toForwardSlash(paths.VIDEOS);
@@ -33,7 +34,7 @@ const build = async () => {
     `));
   }
 
-  console.log('Start building videos cache');
+  log.write('Start building videos cache');
 
   const timeTaken = await asyncRecordTimeInSeconds(async () => {
     const files = getVideoPaths(paths.VIDEOS);
@@ -42,21 +43,21 @@ const build = async () => {
     fs.writeFileSync(videosCacheFile, outputData);
   });
 
-  console.log(`Videos cache file built in ~ ${timeTaken} seconds`);
+  log.write(`Videos cache file built in ~ ${timeTaken} seconds`);
 };
 
 const init = async (force = false) => {
 
-  console.log('Initialize videos cache');
+  log.write('Initialize videos cache');
 
   if (force || !isVideosCacheFile()) {
     await build();
     return;
   }
 
-  console.log(trimExcessSpaces(`
-    Videos cache file already exists, skipping generation \
-    To force generation, run "npm run build-cache"
+  log.write(trimExcessSpaces(`
+    Videos cache file already exists, skipping generation. \
+    To reset the cache, run "npm run build-cache"
   `));
 };
 

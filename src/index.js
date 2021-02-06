@@ -5,6 +5,7 @@ const flash = require('connect-flash');
 const cookieParser = require('cookie-parser');
 const cors = require('cors');
 const yargs = require('yargs/yargs');
+const log = require('./utils/log.util');
 const { hideBin } = require('yargs/helpers');
 
 // Import config
@@ -56,7 +57,7 @@ app.use(express.json());
   const port = argv['port'] || 3000;
 
   const bootstrap = () => {
-    console.log(`Application started on port ${port}`);
+    log.write(`Application started on port ${port}`);
     if (!!argv['open']) {
       open(`http://localhost:${port}`);
     }

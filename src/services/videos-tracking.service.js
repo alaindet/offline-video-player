@@ -1,6 +1,7 @@
 const progress = require('./progress.service');
 const videosCache = require('./videos-cache.service');
 const lastSeenVideo = require('./last-seen-video.service');
+const log = require('../utils/log.util');
 const trimExcessSpaces = require('../utils/trim-excess-spaces.util');
 
 const STORE_KEY = 'videos-tracking';
@@ -26,7 +27,7 @@ const countWatchedVideos = () => {
  */
 const build = () => {
 
-  console.log('Start building videos tracking');
+  log.write('Start building videos tracking');
 
   const tracking = {};
   for (const video of videosCache.get()) {
@@ -34,7 +35,7 @@ const build = () => {
   }
   store(tracking);
 
-  console.log('Videos tracking built');
+  log.write('Videos tracking built');
 };
 
 const markVideoAsSeen = (urlPath) => {
@@ -46,16 +47,16 @@ const markVideoAsSeen = (urlPath) => {
 
 const init = (force = false) => {
 
-  console.log('Initialize videos tracking');
+  log.write('Initialize videos tracking');
 
   if (force || !get()) {
     build();
     return;
   }
 
-  console.log(trimExcessSpaces(`
+  log.write(trimExcessSpaces(`
     Videos tracking already exists, skipping generation. \
-    To reset progress, run "npm run build-tracking"
+    To reset the progress, run "npm run build-tracking"
   `));
 };
 
