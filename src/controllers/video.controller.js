@@ -18,12 +18,11 @@ const buildViewData = (req) => {
 
   return {
     pageTitle: video.name,
-    alerts: req.flash('alert'),
     video,
     videos,
     currentVideo: video.urlPath,
-    prevVideoPath: prevVideo ? prevVideo.urlPath : null,
-    nextVideoPath: nextVideo ? nextVideo.urlPath : null,
+    prevVideo: prevVideo ? prevVideo.urlPath : null,
+    nextVideo: nextVideo ? nextVideo.urlPath : null,
     videosTracking: videosTrackingMap,
     videosWatched: videosTracking.countWatchedVideos(),
   };

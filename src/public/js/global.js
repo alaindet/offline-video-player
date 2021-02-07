@@ -3,6 +3,7 @@ const APP = {
   selectors: {},
   eventHandlers: [],
   rootEventHandlers: [],
+  callbacks: [],
 };
 
 APP.registerSelectors = (selectors) => {
@@ -15,6 +16,10 @@ APP.registerEventHandlers = (eventHandlers) => {
 
 APP.registerRootEventHandlers = (rootEventHandlers) => {
   APP.rootEventHandlers = [...APP.rootEventHandlers, ...rootEventHandlers];
+};
+
+APP.registerCallback = (callback) => {
+  APP.callbacks = [...APP.callbacks, callback];
 };
 
 const initSelectors = () => {
@@ -46,8 +51,15 @@ const initEventHandlers = () => {
   }
 };
 
+const initCallbacks = () => {
+  for (const callback of APP.callbacks) {
+    callback();
+  }
+};
+
 document.addEventListener('DOMContentLoaded', () => {
   initSelectors();
   initRootEventHandlers();
   initEventHandlers();
+  initCallbacks();
 });

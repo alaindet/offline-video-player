@@ -1,10 +1,14 @@
 (() => {
 
-  const interval = 1000;
-  const threshold = 0.9;
+  const interval = 2000;
+  const threshold = 0.8;
   let seen = 0;
   let timer = null;
   let rate = 1.0;
+
+  const onTrackingInit = () => {
+    rate = APP.fetchPlaybackRate();
+  };
 
   const onVideoRateChange = (event) => {
     const playbackRate = event.target.playbackRate;
@@ -13,12 +17,10 @@
 
   const markVideoAsSeen = async () => {
     const urlPath = APP.elements.video?.getAttribute('data-current-video');
-    const data = { urlPath };
-    await fetch('/video/seen', {
-      method: 'PATCH',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(data),
-    });
+    const response = await fetch(`/video/${urlPath}/seen`, { method: 'PATCH' });
+    const body = await response.json();
+    APP.addAlert(body.message);
+    stopTimer();
   }
 
   const checkVideoCompletion = () => {
@@ -27,7 +29,6 @@
     const completion = seen / duration;
     if (completion > threshold) {
       markVideoAsSeen();
-      stopTimer();
     }
   };
 
@@ -52,9 +53,11 @@
 
   APP.registerSelectors({
     video: '.video-player',
+    markAsSeen: '#mark-as-seen',
   });
 
   APP.registerEventHandlers([
+    { element: 'markAsSeen', event: 'click', handler: () => markVideoAsSeen() },
     { element: 'video', event: 'play', handler: onStartCheckingVideoCompletion },
     { element: 'video', event: 'playing', handler: onStartCheckingVideoCompletion },
     { element: 'video', event: 'pause', handler: onStopCheckingVideoCompletion },
@@ -63,5 +66,7 @@
     { element: 'video', event: 'abort', handler: onStopCheckingVideoCompletion },
     { element: 'video', event: 'ratechange', handler: onVideoRateChange },
   ]);
+
+  APP.registerCallback(onTrackingInit);
 
 })();

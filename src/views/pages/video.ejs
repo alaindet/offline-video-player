@@ -1,7 +1,7 @@
 <%#
 # Variables
 - video
-- ?nextVideoPath
+- ?nextVideo
 #%>
 <%- include('../includes/top.ejs') %>
 
@@ -10,9 +10,8 @@
   <main class="video-container">
     <video
       controls
-      autoplay
       class="video-player"
-      data-next-video="<%= nextVideoPath ? '/video/' + nextVideoPath : 'no' %>"
+      data-next-video="<%= nextVideo ? '/video/' + nextVideo : 'no' %>"
       data-current-video="<%= video.urlPath %>"
     >
       <source src="/source/<%= video.urlPath %>" type="video/mp4">
@@ -24,7 +23,7 @@
 
 <aside class="menu">
   <div class="menu-close-container">
-    <button class="menu-close btn btn-default">Close menu</button>
+    <button class="btn btn-default" id="menu-close">Close menu</button>
   </div>
   <%- include('../includes/videos-list.ejs') %>
 </aside>

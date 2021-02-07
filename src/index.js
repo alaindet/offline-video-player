@@ -48,10 +48,14 @@ app.use(express.json());
   app.get('/', homeController.getHome);
   app.get('/source/:urlpath', videoSourceController.getVideoSource);
   app.get('/video/:urlpath', videoController.getVideo);
-  app.post('/video/:urlpath/bookmark', bookmarkController.saveBookmark);
-  app.post('/progress', progressController.uploadSetup, progressController.importFile);
+  app.patch('/video/:urlpath/bookmark', bookmarkController.saveBookmark);
+  app.patch('/video/:urlpath/seen', trackingController.markVideoAsSeen);
+  app.post(
+    '/progress',
+    progressController.uploadSetup,
+    progressController.importFile,
+  );
   app.get('/progress', progressController.exportFile);
-  app.patch('/video/seen', trackingController.markVideoAsSeen);
 
   // Bootstrap
   const port = argv['port'] || 3000;

@@ -3,12 +3,24 @@
   const PLAYBACK_STEP = 0.25;
   const PLAYBACK_MIN = 0.5;
   const PLAYBACK_MAX = 3.0;
+  const PLAYBACK_KEY = 'playback';
 
   const getPlaybackRate = () => APP.elements.video.playbackRate;
 
+  const storePlaybackRate = (rate) => localStorage.setItem(PLAYBACK_KEY, rate);
+
+  const fetchPlaybackRate = () => {
+    const rate = localStorage.getItem(PLAYBACK_KEY);
+    return rate ? rate : 1.0;
+  };
+
   const updatePlaybackRate = (rate) => {
+    if (!APP.elements.video) {
+      return;
+    }
     APP.elements.video.playbackRate = rate;
     APP.elements.playbackReset.innerHTML = Number(rate).toFixed(2) + 'x';
+    storePlaybackRate(rate);
   };
 
   const onPlaybackSlowerClick = () => {
@@ -31,6 +43,12 @@
       window.location = nextVideo;
     }
   };
+
+  // Export
+  APP.fetchPlaybackRate = fetchPlaybackRate;
+
+  // Export
+  APP.updatePlaybackRate = updatePlaybackRate;
 
   APP.registerSelectors({
     video: '.video-player',

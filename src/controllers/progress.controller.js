@@ -12,9 +12,7 @@ const upload = multer({
 
 const importFile = (req, res) => {
   req.flash('alert', 'The progress was imported');
-  const bookmarkVideoPath = bookmark.get();
-  const url = bookmarkVideoPath ? `/video/${bookmarkVideoPath}` : '/';
-  return res.redirect(303, url);
+  return res.redirect(303, '/');
 };
 
 const uploadSetup = upload.single('progress-file');

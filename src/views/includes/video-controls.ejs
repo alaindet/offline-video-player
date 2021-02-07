@@ -1,7 +1,7 @@
 <%#
 # Variables
-- ?prevVideoPath
-- ?nextVideoPath
+- ?prevVide
+- ?nextVide
 #%>
 <aside class="video-controls">
 
@@ -17,9 +17,15 @@
 
   <!-- Playback -->
   <div class="inline-buttons">
-    <button class="btn btn-default full-width" id="playback-slower">-</button>
-    <button class="btn btn-default full-width" id="playback-reset">1.00x</button>
-    <button class="btn btn-default full-width" id="playback-faster">+</button>
+    <button class="btn btn-default full-width" id="playback-slower">
+      -
+    </button>
+    <button class="btn btn-default full-width" id="playback-reset">
+      1.00x
+    </button>
+    <button class="btn btn-default full-width" id="playback-faster">
+      +
+    </button>
   </div>
 
   <!-- Bookmark -->
@@ -41,16 +47,16 @@
 
     <!-- Prev -->
     <a
-      href="/video/<%= prevVideoPath %>"
+      href="/video/<%= prevVideo %>"
       class="full-width btn btn-default"
-      <%= !prevVideoPath ? 'disabled' : '' %>
+      <%= !prevVideo ? 'disabled' : '' %>
     >Prev</a>
 
     <!-- Next -->
     <a
-      href="/video/<%= nextVideoPath %>"
+      href="/video/<%= nextVideo %>"
       class="full-width btn btn-default"
-      <%= !nextVideoPath ? 'disabled' : '' %>
+      <%= !nextVideo ? 'disabled' : '' %>
     >Next</a>
 
   </div>
