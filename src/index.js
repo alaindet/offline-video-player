@@ -49,7 +49,7 @@ app.use(express.json());
   app.get('/source/:urlpath', videoSourceController.getVideoSource);
   app.get('/video/:urlpath', videoController.getVideo);
   app.patch('/video/:urlpath/bookmark', bookmarkController.saveBookmark);
-  app.patch('/video/:urlpath/seen', trackingController.markVideoAsSeen);
+  app.patch('/video/:urlpath/watched', trackingController.markVideoAsWatched);
   app.post(
     '/progress',
     progressController.uploadSetup,

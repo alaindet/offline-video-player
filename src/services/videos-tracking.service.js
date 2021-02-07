@@ -1,6 +1,6 @@
 const progress = require('./progress.service');
 const videosCache = require('./videos-cache.service');
-const lastSeenVideo = require('./last-seen-video.service');
+const lastWatchedVideo = require('./last-watched-video.service');
 const log = require('../utils/log.util');
 const trimExcessSpaces = require('../utils/trim-excess-spaces.util');
 
@@ -23,7 +23,7 @@ const countWatchedVideos = () => {
 
 /**
  * Generates a map of videos based on cached file
- * Initializes all values as false (aka "not seen yet")
+ * Initializes all values as false (aka "not watched yet")
  */
 const build = () => {
 
@@ -38,10 +38,10 @@ const build = () => {
   log.write('Videos tracking built');
 };
 
-const markVideoAsSeen = (urlPath) => {
+const markVideoAsWatched = (urlPath) => {
   const tracking = get();
   tracking[urlPath] = true;
-  lastSeenVideo.set(urlPath);
+  lastWatchedVideo.set(urlPath);
   return store(tracking);
 };
 
@@ -64,6 +64,6 @@ module.exports = {
   get,
   build,
   init,
-  markVideoAsSeen,
+  markVideoAsWatched,
   countWatchedVideos,
 };

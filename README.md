@@ -1,17 +1,29 @@
 # Offline Video Player
 
-Offline Video Player is a simple Express MVC application for watching many short videos in sequence, comfortably. It tracks progress and lets you export/import it as a portable JSON file.
+Offline Video Player is an Express MVC application for watching many short videos in sequence, comfortably. It tracks progress and lets you export/import it as a portable JSON file.
 
 
-## Philosophy and Known Limitations
+## Features
+
+- Simple and fast
+- Progress is automatically tracked
+- Import/export progress as a JSON file
+- Set playback rate up to 4.00x
+- Manually bookmark specific videos (only one video can be bookmarked at a time)
+- *Previous* and *Next* buttons
+- List showing *watched* and *to watch* videos
+- Progress bar
+
+
+## Known Limitations
 
 Offline Video Player is admittedly a specific solution to a specific problem, so it strives for ease of use, ease of development and tries to provide as few features as needed. For this reason, there's a number of shortcuts and known limitations to it
 
 - It only works with `.mp4` files
 - Changing any `.mp4` file in the `/videos` folder could disrupt the saved progress
 - Saved progress as well as cache is persisted as JSON files, no database involved
-- Being served locally, some best practices of web applications were skipped, i.e.: most operations are synchronous
-- No build pipeline, no concatenation, no minification for frontend assets (CSS and JS)
+- Being served locally, some best practices were skipped, i.e.: most operations are synchronous
+- Zero builds: frontend is not minified, backend only implements the basic CommonJS syntax
 
 
 ## Requirements

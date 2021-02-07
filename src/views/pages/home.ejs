@@ -3,6 +3,7 @@
 - firstVideo
 - ?bookmark
 - ?isProgress
+- ?lastWatchedVideo
 #%>
 <%- include('../includes/top.ejs') %>
 
@@ -17,10 +18,10 @@
     Start with the first video
   </a>
 
-  <!-- Last seen video -->
-  <% if (lastSeenVideo) { %>
-    <a href="/video/<%= lastSeenVideo %>" class="banner-action">
-      Continue from last seen
+  <!-- Last watched video -->
+  <% if (locals.lastWatchedVideo) { %>
+    <a href="/video/<%= lastWatchedVideo %>" class="banner-action">
+      Continue from last watched
     </a>
   <% } %>
 

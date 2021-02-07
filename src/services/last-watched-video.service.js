@@ -1,6 +1,6 @@
 const progress = require('./progress.service');
 
-const STORE_KEY = 'last-seen-video';
+const STORE_KEY = 'last-watched-video';
 
 const get = () => progress.get(STORE_KEY);
 

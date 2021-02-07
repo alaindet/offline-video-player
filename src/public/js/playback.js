@@ -2,7 +2,7 @@
 
   const PLAYBACK_STEP = 0.25;
   const PLAYBACK_MIN = 0.5;
-  const PLAYBACK_MAX = 3.0;
+  const PLAYBACK_MAX = 4.0;
   const PLAYBACK_KEY = 'playback';
 
   const getPlaybackRate = () => APP.elements.video.playbackRate;

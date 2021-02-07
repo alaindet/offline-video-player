@@ -14,7 +14,7 @@
     <li>
       <a
         href="/video/<%= video.urlPath %>"
-        class="video-item<%= (currentVideo === video.urlPath) ? ' active' : '' %><%= (videosTracking[video.urlPath] ? ' seen' : '') %>"
+        class="video-item<%= (currentVideo === video.urlPath) ? ' active' : '' %><%= (videosTracking[video.urlPath] ? ' watched' : '') %>"
       >
         <h3 class="item-title"><%= video.name %></h3>
         <em class="item-duration"><%= video.duration %></em>
