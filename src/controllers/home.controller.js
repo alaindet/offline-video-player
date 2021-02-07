@@ -11,7 +11,7 @@ const getHome = (req, res) => {
     alerts: req.flash('alert'),
     bookmark: bookmark.get(),
     isProgress: progress.isProgressFile(),
-    markVideoAsWatched: lastWatchedVideo.get(),
+    lastWatchedVideo: lastWatchedVideo.get(),
   });
 };
 
