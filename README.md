@@ -21,6 +21,7 @@ Offline Video Player is admittedly a specific solution to a specific problem, so
 
 - It only works with `.mp4` files
 - Changing any `.mp4` file in the `/videos` folder could disrupt the saved progress
+- Initial build of the cache can take from a few seconds **up to several minutes** depending on your machine and the number of videos; however, this should only happens once, the first time you run the app
 - Saved progress as well as cache is persisted as JSON files, no database involved
 - Being served locally, some best practices were skipped, i.e.: most operations are synchronous
 - Zero builds: frontend is not minified, backend only implements the basic CommonJS syntax

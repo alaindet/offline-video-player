@@ -34,7 +34,7 @@ const build = async () => {
     `));
   }
 
-  log.write('Start building videos cache');
+  log.write('Start building videos cache (please wait)');
 
   const timeTaken = await asyncRecordTimeInSeconds(async () => {
     const files = getVideoPaths(paths.VIDEOS);
