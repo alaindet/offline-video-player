@@ -3,6 +3,7 @@ const videosTracking = require('../services/videos-tracking.service');
 
 const buildViewData = (req) => {
 
+  const currentTime = req.query.t;
   const videos = videosCache.get();
   const urlPath = req.params.urlpath;
   const videoIndex = videos.findIndex(v => v.urlPath === urlPath);
@@ -25,6 +26,7 @@ const buildViewData = (req) => {
     nextVideo: nextVideo ? nextVideo.urlPath : null,
     videosTracking: videosTrackingMap,
     videosWatched: videosTracking.countWatchedVideos(),
+    currentTime: currentTime ? currentTime : null,
   };
 };
 

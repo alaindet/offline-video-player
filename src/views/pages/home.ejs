@@ -4,6 +4,7 @@
 - ?bookmark
 - ?isProgress
 - ?lastWatchedVideo
+- ?currentTime
 #%>
 <%- include('../includes/top.ejs') %>
 
@@ -26,8 +27,11 @@
   <% } %>
 
   <!-- Bookmark -->
-  <% if (bookmark) { %>
-    <a href="/video/<%= bookmark %>" class="banner-action">
+  <% if (locals.bookmark) { %>
+    <a
+      href="/video/<%= bookmark.urlPath %>?t=<%= bookmark.currentTime %>" 
+      class="banner-action"
+    >
       Continue from the bookmark
     </a>
   <% } %>
