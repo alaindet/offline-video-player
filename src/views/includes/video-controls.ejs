@@ -1,7 +1,7 @@
 <%#
 # Variables
-- ?prevVide
-- ?nextVide
+- ?prevVideo
+- ?nextVideo
 #%>
 <aside class="video-controls">
 
@@ -34,9 +34,14 @@
   </button>
 
   <!-- Mark as watched -->
-  <button class="full-width btn btn-default" id="mark-as-watched">
+  <label for="mark-as-watched" class="full-width btn btn-default">
+    <input
+      type="checkbox"
+      id="mark-as-watched"
+      <%= videosTracking[currentVideo] ? 'checked' : '' %>
+    >
     Mark&nbsp;as&nbsp;watched
-  </button>
+  </label>
 
   <!-- Download progress -->
   <a href="/progress" class="full-width btn btn-default">

@@ -59,7 +59,7 @@ npm start -- --port=4242
 Options are
 
 - `--open` (Default: `true`) Opens the browser as soon as the app starts
-- `--port` (Default `3000`) The port to serve the app on
+- `--port` (Default `4242`) The port to serve the app on
 - `--force-cache` (Default `false`) Forces to rebuild the videos cache file
 - `--force-tracking` (Default `false`) Forces to rebuild and reset the videos tracking
 
