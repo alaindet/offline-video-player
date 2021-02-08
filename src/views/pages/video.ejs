@@ -2,6 +2,7 @@
 # Variables
 - video
 - ?nextVideo
+- ?currentTime
 #%>
 <%- include('../includes/top.ejs') %>
 
@@ -11,6 +12,9 @@
     <video
       controls
       class="video-player"
+      <% if (locals.currentTime && locals.currentTime !== null) { %>
+        data-current-time="<%= currentTime %>"
+      <% } %>
       data-next-video="<%= nextVideo ? '/video/' + nextVideo : 'no' %>"
       data-current-video="<%= video.urlPath %>"
     >

@@ -1,19 +1,8 @@
 (() => {
 
-  const interval = 2000;
-  const threshold = 0.8;
-  let watched = 0;
+  const interval = 1000;
+  const threshold = 12; // 12 seconds
   let timer = null;
-  let rate = 1.0;
-
-  const onTrackingInit = () => {
-    rate = APP.fetchPlaybackRate();
-  };
-
-  const onVideoRateChange = (event) => {
-    const playbackRate = event.target.playbackRate;
-    rate = playbackRate;
-  };
 
   const markVideoAsWatched = async () => {
     const urlPath = APP.elements.video?.getAttribute('data-current-video');
@@ -21,13 +10,12 @@
     const body = await response.json();
     APP.addAlert(body.message);
     stopTimer();
-  }
+  };
 
   const checkVideoCompletion = () => {
-    watched += (interval / 1000) * rate;
+    const currentTime = APP.elements.video.currentTime;
     const duration = APP.elements.video.duration;
-    const completion = watched / duration;
-    if (completion > threshold) {
+    if (currentTime > duration - threshold) {
       markVideoAsWatched();
     }
   };
@@ -64,9 +52,6 @@
     { element: 'video', event: 'seeking', handler: onStopCheckingVideoCompletion },
     { element: 'video', event: 'waiting', handler: onStopCheckingVideoCompletion },
     { element: 'video', event: 'abort', handler: onStopCheckingVideoCompletion },
-    { element: 'video', event: 'ratechange', handler: onVideoRateChange },
   ]);
-
-  APP.registerCallback(onTrackingInit);
 
 })();
