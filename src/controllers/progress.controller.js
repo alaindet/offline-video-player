@@ -1,7 +1,7 @@
 const multer = require('multer');
 const paths = require('../config/paths.config');
 const progress = require('../services/progress.service');
-const bookmark = require('../services/bookmark.service');
+const { getFormattedTimestamp } = require('../utils/get-formatted-timestamp.util');
 
 const upload = multer({
   storage: multer.diskStorage({
@@ -18,7 +18,9 @@ const importFile = (req, res) => {
 const uploadSetup = upload.single('progress-file');
 
 const exportFile = (req, res) => {
-  res.download(progress.progressPath);
+  const timestamp = getFormattedTimestamp();
+  const filename = `progress_${timestamp}.json`;
+  res.download(progress.progressPath, filename);
 };
 
 module.exports = {
