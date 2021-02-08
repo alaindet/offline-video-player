@@ -4,7 +4,6 @@
     const urlPath = APP.elements.video?.getAttribute('data-current-video');
     const currentTime = APP.elements.video.currentTime;
     const bookmark = { urlPath, currentTime };
-    console.log('bookmark', bookmark);
     const options = {
       method: 'PATCH',
       headers: { 'Content-Type': 'application/json' },
