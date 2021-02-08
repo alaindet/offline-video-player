@@ -38,9 +38,9 @@ const build = () => {
   log.write('Videos tracking built');
 };
 
-const markVideoAsWatched = (urlPath) => {
+const markVideoAsWatched = (urlPath, action = 'mark') => {
   const tracking = get();
-  tracking[urlPath] = true;
+  tracking[urlPath] = (action === 'mark');
   lastWatchedVideo.set(urlPath);
   return store(tracking);
 };

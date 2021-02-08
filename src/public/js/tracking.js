@@ -4,9 +4,15 @@
   const threshold = 12; // 12 seconds
   let timer = null;
 
-  const markVideoAsWatched = async () => {
+  const markVideoAsWatched = async (event) => {
+    const action = event.target.checked ? 'mark' : 'unmark';
     const urlPath = APP.elements.video?.getAttribute('data-current-video');
-    const response = await fetch(`/video/${urlPath}/watched`, { method: 'PATCH' });
+    const options = {
+      method: 'PATCH',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ urlPath, action }),
+    };
+    const response = await fetch(`/video/${urlPath}/watched`, options);
     const body = await response.json();
     APP.addAlert(body.message);
     stopTimer();
@@ -45,7 +51,7 @@
   });
 
   APP.registerEventHandlers([
-    { element: 'markAsWatched', event: 'click', handler: () => markVideoAsWatched() },
+    { element: 'markAsWatched', event: 'click', handler: (e) => markVideoAsWatched(e) },
     { element: 'video', event: 'play', handler: onStartCheckingVideoCompletion },
     { element: 'video', event: 'playing', handler: onStartCheckingVideoCompletion },
     { element: 'video', event: 'pause', handler: onStopCheckingVideoCompletion },
