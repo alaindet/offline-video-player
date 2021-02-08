@@ -58,7 +58,7 @@ app.use(express.json());
   app.get('/progress', progressController.exportFile);
 
   // Bootstrap
-  const port = argv['port'] || 3000;
+  const port = argv['port'] || 4242;
 
   const bootstrap = () => {
     log.write(`Application started on port ${port}`);
