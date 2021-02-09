@@ -62,6 +62,27 @@ Options are
 - `--port` (Default `4242`) The port to serve the app on
 - `--force-cache` (Default `false`) Forces to rebuild the videos cache file
 - `--force-tracking` (Default `false`) Forces to rebuild and reset the videos tracking
+- `--videos-path` (Default: `/videos`) Change the videos folder
+
+### Warning
+
+If you are on **Windows**, please escape backslashes or wrap paths into double quotes. This does not work
+
+```
+npm start -- --videos-path=C:\your\specific\path # IT DOES NOT WORK!
+```
+
+but this works
+
+```
+npm start -- --videos-path="C:\your\specific\path"
+```
+
+and this is fine too
+
+```
+npm start -- --videos-path=C:\\your\\specific\\path
+```
 
 
 ## Scripts

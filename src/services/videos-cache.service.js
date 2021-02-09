@@ -13,9 +13,9 @@ const trimExcessSpaces = require('../utils/trim-excess-spaces.util');
 const log = require('../utils/log.util');
 
 const videosCacheFile = path.join(paths.CACHE, 'videos.json');
-const COMMON_STRIPPABLE_PATH = toForwardSlash(paths.VIDEOS);
+const COMMON_STRIPPABLE_PATH = toForwardSlash(paths.getVideosPath());
 
-const isVideosDir = () => fs.existsSync(paths.VIDEOS);
+const isVideosDir = () => fs.existsSync(paths.getVideosPath());
 
 const isVideosCacheFile = () => fs.existsSync(videosCacheFile);
 
@@ -37,7 +37,7 @@ const build = async () => {
   log.write('Start building videos cache (please wait)');
 
   const timeTaken = await asyncRecordTimeInSeconds(async () => {
-    const files = getVideoPaths(paths.VIDEOS);
+    const files = getVideoPaths(paths.getVideosPath());
     const parsed = await parse(files);
     const outputData = JSON.stringify(parsed);
     fs.writeFileSync(videosCacheFile, outputData);

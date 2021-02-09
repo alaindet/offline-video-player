@@ -7,6 +7,7 @@ const cors = require('cors');
 const yargs = require('yargs/yargs');
 const log = require('./utils/log.util');
 const { hideBin } = require('yargs/helpers');
+const normalizePath = require('normalize-path');
 
 // Import config
 const paths = require('./config/paths.config');
@@ -37,6 +38,13 @@ app.set('view engine', 'ejs');
 app.set('views', paths.VIEWS);
 app.use(express.static(paths.PUBLIC));
 app.use(express.json());
+
+// Change videos path if needed
+let videosPath = argv['videos-path'];
+if (videosPath) {
+  videosPath = normalizePath(videosPath);
+  paths.setVideosPath(videosPath);
+}
 
 (async () => {
 
