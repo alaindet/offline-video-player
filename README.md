@@ -9,7 +9,7 @@ Offline Video Player is an Express MVC application for watching many short video
 - Progress is automatically tracked
 - Import/export progress as a JSON file
 - Set playback rate up to 4.00x
-- Manually bookmark specific videos (only one video can be bookmarked at a time)
+- Manually bookmark videos at specific time (only one video can be bookmarked at a time)
 - *Previous* and *Next* buttons
 - List showing *watched* and *to watch* videos
 - Progress bar
@@ -48,25 +48,40 @@ Offline Video Player is admittedly a specific solution to a specific problem, so
    npm start
    ```
 
-## Options
-
-You can pass options to `npm start`, for example
-
-```
-npm start -- --port=4242
-```
-
-Options are
-
-- `--open` (Default: `true`) Opens the browser as soon as the app starts
-- `--port` (Default `4242`) The port to serve the app on
-- `--force-cache` (Default `false`) Forces to rebuild the videos cache file
-- `--force-tracking` (Default `false`) Forces to rebuild and reset the videos tracking
-
 
 ## Scripts
 
-- `npm run start` The default command to start the app
-- `npm run build-cache` Reset (if needed) and build the videos cache file
-- `npm run build-tracking` Reset (if needed) and build the videos tracking feature
+- `npm run start` The default command to start the app. Options are
+  - `--open` (Default: `true`) Open the browser as soon as the app starts
+  - `--port` (Default `4242`) The port to serve the app on
+  - `--force-cache` (Default `false`) Force to rebuild the videos cache file
+  - `--force-tracking` (Default `false`) Force to rebuild and reset the videos tracking
+  - `--videos-path` (Default: `/videos`) Change the videos folder (accepts only *full paths*)
+- `npm run build-cache` Rebuild the videos cache file from videos folder. Options are
+  - `--videos-path` (Default: `/videos`) Change the videos folder (accepts only *full paths*)
+- `npm run build-tracking` Rebuild the videos tracking feature
 - `npm run reset` Reset all generated files (WARNING: Deletes progress)
+
+
+## Options
+
+- To pass options to a NPM script, preceed them with a `--`, ex.:
+
+  ```
+  npm start -- --port=4242 --force-cache
+  ```
+
+- If you are on **Windows**, please escape backslashes or wrap paths into double quotes. This does not work
+
+  ```
+  # NOPE
+  npm start -- --videos-path=C:\your\specific\path # IT DOES NOT WORK!
+  ```
+  
+  but these two work
+  
+  ```
+  # YEP
+  npm start -- --videos-path="C:\your\specific\path"
+  npm start -- --videos-path=C:\\your\\specific\\path
+  ```
