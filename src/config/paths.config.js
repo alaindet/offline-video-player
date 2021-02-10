@@ -6,11 +6,7 @@ const PUBLIC = path.join(SRC, 'public');
 const ROOT = path.join(__dirname, '..', '..');
 const CACHE = path.join(ROOT, 'cache');
 const STORAGE = path.join(ROOT, 'storage');
-let VIDEOS = path.join(ROOT, 'videos');
-
-const setVideosPath = videosPath => VIDEOS = videosPath;
-
-const getVideosPath = () => VIDEOS;
+const VIDEOS = path.join(ROOT, 'videos');
 
 module.exports = {
   SRC,
@@ -19,6 +15,5 @@ module.exports = {
   ROOT,
   CACHE,
   STORAGE,
-  setVideosPath,
-  getVideosPath,
+  VIDEOS,
 };

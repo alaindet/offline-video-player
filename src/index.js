@@ -7,7 +7,6 @@ const cors = require('cors');
 const yargs = require('yargs/yargs');
 const log = require('./utils/log.util');
 const { hideBin } = require('yargs/helpers');
-const normalizePath = require('normalize-path');
 
 // Import config
 const paths = require('./config/paths.config');
@@ -23,6 +22,7 @@ const trackingController = require('./controllers/tracking.controller');
 
 // Import services
 const videosCache = require('./services/videos-cache.service');
+const videosPathCache = require('./services/videos-path-cache.service');
 const videosTracking = require('./services/videos-tracking.service');
 
 // Parse CLI options
@@ -40,10 +40,8 @@ app.use(express.static(paths.PUBLIC));
 app.use(express.json());
 
 // Change videos path if needed
-let videosPath = argv['videos-path'];
-if (videosPath) {
-  videosPath = normalizePath(videosPath);
-  paths.setVideosPath(videosPath);
+if (argv['videos-path']) {
+  videosPathCache.set(argv['videos-path']);
 }
 
 (async () => {
