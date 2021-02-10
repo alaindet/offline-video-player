@@ -22,6 +22,7 @@ const trackingController = require('./controllers/tracking.controller');
 
 // Import services
 const videosCache = require('./services/videos-cache.service');
+const videosPathCache = require('./services/videos-path-cache.service');
 const videosTracking = require('./services/videos-tracking.service');
 
 // Parse CLI options
@@ -37,6 +38,11 @@ app.set('view engine', 'ejs');
 app.set('views', paths.VIEWS);
 app.use(express.static(paths.PUBLIC));
 app.use(express.json());
+
+// Change videos path if needed
+if (argv['videos-path']) {
+  videosPathCache.set(argv['videos-path']);
+}
 
 (async () => {
 

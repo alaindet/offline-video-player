@@ -2,22 +2,20 @@ const path = require('path');
 const fs = require('fs');
 const glob = require('glob');
 const { getVideoDurationInSeconds } = require('get-video-duration');
-const humanizeDuration = require('humanize-duration');
 const { orderBy } = require('natural-orderby');
 const paths = require('../config/paths.config');
+const videosPathCache = require('./videos-path-cache.service');
 const getFileName = require('../utils/get-filename.util');
+const getDuration = require('../utils/get-duration');
 const { asyncRecordTimeInSeconds } = require('../utils/record-time.util');
 const toForwardSlash = require('../utils/to-forward-slash.util');
 const toKebabCase = require('../utils/to-kebab-case.util');
 const trimExcessSpaces = require('../utils/trim-excess-spaces.util');
 const log = require('../utils/log.util');
 
-const videosCacheFile = path.join(paths.CACHE, 'videos.json');
-const COMMON_STRIPPABLE_PATH = toForwardSlash(paths.VIDEOS);
+const VIDEOS_CACHE_FILE = path.join(paths.CACHE, 'videos.json');
 
-const isVideosDir = () => fs.existsSync(paths.VIDEOS);
-
-const isVideosCacheFile = () => fs.existsSync(videosCacheFile);
+const isVideosCacheFile = () => fs.existsSync(VIDEOS_CACHE_FILE);
 
 const getVideoPaths = (dir, ext = 'mp4') => {
   const globResult = glob.sync(`${dir}/**/*.${ext}`);
@@ -25,27 +23,30 @@ const getVideoPaths = (dir, ext = 'mp4') => {
   return orderBy(fullPaths);
 };
 
+// Export
 const build = async () => {
 
-  if (!isVideosDir()) {
+  if (!videosPathCache.exists()) {
     throw new Error(trimExcessSpaces(`
-      /videos directory does not exist, \
-      please create it
+      Videos folder does not exist, \
+      please create it or provide it via --videos-path option
     `));
   }
 
   log.write('Start building videos cache (please wait)');
 
   const timeTaken = await asyncRecordTimeInSeconds(async () => {
-    const files = getVideoPaths(paths.VIDEOS);
-    const parsed = await parse(files);
+    const videosPath = videosPathCache.get();
+    const files = getVideoPaths(videosPath);
+    const parsed = await parse(files, toForwardSlash(videosPath));
     const outputData = JSON.stringify(parsed);
-    fs.writeFileSync(videosCacheFile, outputData);
+    fs.writeFileSync(VIDEOS_CACHE_FILE, outputData);
   });
 
   log.write(`Videos cache file built in ~ ${timeTaken} seconds`);
 };
 
+// Export
 const init = async (force = false) => {
 
   log.write('Initialize videos cache');
@@ -61,6 +62,7 @@ const init = async (force = false) => {
   `));
 };
 
+// Export
 const get = () => {
   if (!isVideosCacheFile()) {
     throw new Error(trimExcessSpaces(`
@@ -68,7 +70,7 @@ const get = () => {
       Run "npm run build-cache" to generate
     `));
   }
-  const rawData = fs.readFileSync(videosCacheFile);
+  const rawData = fs.readFileSync(VIDEOS_CACHE_FILE);
   return JSON.parse(rawData);
 };
 
@@ -83,15 +85,14 @@ const extractPartialPath = (fullPath, commonPath) => {
   return partial.slice(1, lastDot);
 };
 
-const parse = async (videoPaths) => {
+const parse = async (videoPaths, commonPath) => {
   const parsed = [];
 
   for (const fullPath of videoPaths) {
     const rawDuration = await getVideoDurationInSeconds(fullPath);
-    const roundedDuration = Math.round(rawDuration) * 1000;
-    const duration = humanizeDuration(roundedDuration);
+    const duration = getDuration(Math.round(rawDuration));
     const name = getFileName(fullPath);
-    const partialPath = extractPartialPath(fullPath, COMMON_STRIPPABLE_PATH);
+    const partialPath = extractPartialPath(fullPath, commonPath);
     const urlPath = toKebabCase(partialPath);
     parsed.push({ name, duration, fullPath, urlPath });
   }
