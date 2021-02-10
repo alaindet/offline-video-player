@@ -5,7 +5,7 @@
   let timer = null;
 
   const markVideoAsWatched = async (event) => {
-    const action = event.target.checked ? 'mark' : 'unmark';
+    const action = (event && !event.target.checked) ? 'unmark' : 'mark';
     const urlPath = APP.elements.video?.getAttribute('data-current-video');
     const options = {
       method: 'PATCH',
