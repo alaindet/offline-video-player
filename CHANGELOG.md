@@ -7,7 +7,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 ## Unreleased
 
 ### Added
-- `videos-path` CLI option of `npm start`
+- `--videos-path` option to `npm start` and `npm run build-cache` scripts
 
 ## [1.1.0] - 2021-02-09
 
