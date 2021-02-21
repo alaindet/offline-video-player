@@ -1,4 +1,6 @@
 const fs = require('fs');
+const path = require('path');
+const srt2vtt = require('srt-to-vtt');
 
 const videosCache = require('../services/videos-cache.service');
 const config = require('../config/video.config');
@@ -19,7 +21,7 @@ const getVideoFullPath = (urlpath) => {
 };
 
 // Export
-const getVideoSource = (req, res) => {
+const getVideo = (req, res) => {
 
   // Check range headers
   const range = req.headers.range;
@@ -46,6 +48,17 @@ const getVideoSource = (req, res) => {
   stream.pipe(res);
 };
 
+// TODO
+// Export
+const getSubtitles = (req, res) => {
+  // TODO
+  const subtitlesPath = path.join(__dirname, 'demo.srt');
+  fs.createReadStream(subtitlesPath)
+    .pipe(srt2vtt())
+    .pipe(res);
+};
+
 module.exports = {
-  getVideoSource,
+  getVideo,
+  getSubtitles,
 };

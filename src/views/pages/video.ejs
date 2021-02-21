@@ -12,13 +12,24 @@
     <video
       controls
       class="video-player"
+      data-next-video="<%= nextVideo ? '/videos/' + nextVideo : 'no' %>"
+      data-current-video="<%= video.urlPath %>"
       <% if (locals.currentTime && locals.currentTime !== null) { %>
         data-current-time="<%= currentTime %>"
       <% } %>
-      data-next-video="<%= nextVideo ? '/video/' + nextVideo : 'no' %>"
-      data-current-video="<%= video.urlPath %>"
     >
-      <source src="/source/<%= video.urlPath %>" type="video/mp4">
+      <source
+        src="/videos/<%= video.urlPath %>/source"
+        type="video/mp4"
+      >
+      <!-- TODO -->
+      <!-- <track
+        label="The subtitle label"
+        kind="subtitles"
+        srclang="en"
+        src="/videos/<%= video.urlPath %>/subtitles"
+        default
+      > -->
     </video>
   </main>
 

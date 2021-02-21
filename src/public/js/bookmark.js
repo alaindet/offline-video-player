@@ -9,7 +9,7 @@
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(bookmark),
     };
-    const response = await fetch(`/video/${urlPath}/bookmark`, options);
+    const response = await fetch(`/videos/${urlPath}/bookmark`, options);
     const body = await response.json();
     APP.addAlert(body.message);
   };

@@ -1,5 +1,5 @@
-const path = require('path');
 const fs = require('fs');
+const path = require('path');
 const glob = require('glob');
 const { getVideoDurationInSeconds } = require('get-video-duration');
 const { orderBy } = require('natural-orderby');
@@ -14,17 +14,19 @@ const trimExcessSpaces = require('../utils/trim-excess-spaces.util');
 const log = require('../utils/log.util');
 
 const VIDEOS_CACHE_FILE = path.join(paths.CACHE, 'videos.json');
+const VIDEOS_GLOB = 'mp4';
+const VIDEOS_WITH_SUBTITLES_GLOB = '?(mp4|srt)';
 
 const isVideosCacheFile = () => fs.existsSync(VIDEOS_CACHE_FILE);
 
-const getVideoPaths = (dir, ext = 'mp4') => {
+const getVideoPaths = (dir, ext = VIDEOS_GLOB) => {
   const globResult = glob.sync(`${dir}/**/*.${ext}`);
   const fullPaths = globResult.length ? globResult : [];
   return orderBy(fullPaths);
 };
 
 // Export
-const build = async () => {
+const build = async (options) => {
 
   if (!videosPathCache.exists()) {
     throw new Error(trimExcessSpaces(`
@@ -37,8 +39,12 @@ const build = async () => {
 
   const timeTaken = await asyncRecordTimeInSeconds(async () => {
     const videosPath = videosPathCache.get();
-    const files = getVideoPaths(videosPath);
-    const parsed = await parse(files, toForwardSlash(videosPath));
+    const globPattern = options.subtitles
+      ? VIDEOS_GLOB
+      : VIDEOS_WITH_SUBTITLES_GLOB;
+    const files = getVideoPaths(videosPath, globPattern);
+    const commonPath = toForwardSlash(videosPath);
+    const parsed = await parse(files, commonPath);
     const outputData = JSON.stringify(parsed);
     fs.writeFileSync(VIDEOS_CACHE_FILE, outputData);
   });
@@ -94,7 +100,12 @@ const parse = async (videoPaths, commonPath) => {
     const name = getFileName(fullPath);
     const partialPath = extractPartialPath(fullPath, commonPath);
     const urlPath = toKebabCase(partialPath);
-    parsed.push({ name, duration, fullPath, urlPath });
+    parsed.push({
+      name,
+      duration,
+      urlPath,
+      fullPath,
+    });
   }
 
   return parsed;
