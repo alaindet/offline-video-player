@@ -1,7 +1,7 @@
 const multer = require('multer');
 const paths = require('../config/paths.config');
 const progress = require('../services/progress.service');
-const { getFormattedTimestamp } = require('../utils/get-formatted-timestamp.util');
+const { getFormattedTimestamp } = require('../utils/time/get-formatted-timestamp.util');
 
 const upload = multer({
   storage: multer.diskStorage({

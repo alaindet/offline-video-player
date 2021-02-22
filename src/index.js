@@ -13,12 +13,12 @@ const paths = require('./config/paths.config');
 const sessionConfig = require('./config/session.config');
 
 // Import controllers
-const homeController = require('./controllers/home.controller');
-const videoController = require('./controllers/video.controller');
-const videoSourceController = require ('./controllers/source.controller');
-const bookmarkController = require('./controllers/bookmark.controller');
-const progressController = require('./controllers/progress.controller');
-const trackingController = require('./controllers/tracking.controller');
+const homeCtrl = require('./controllers/home.controller');
+const videoCtrl = require('./controllers/video.controller');
+const videoSourceCtrl = require ('./controllers/source.controller');
+const bookmarkCtrl = require('./controllers/bookmark.controller');
+const progressCtrl = require('./controllers/progress.controller');
+const trackingCtrl = require('./controllers/tracking.controller');
 
 // Import services
 const videosCache = require('./services/videos-cache.service');
@@ -46,22 +46,26 @@ if (argv['videos-path']) {
 
 (async () => {
 
-  // Setup services
-  await videosCache.init(!!argv['force-cache']);
-  videosTracking.init(!!argv['force-tracking']);
+  // Setup video cache
+  await videosCache.init({
+    force: !!argv['force-cache'],
+    subtitles: argv['subtitles'],
+  });
+
+  // Setup video tracking
+  videosTracking.init({
+    force: !!argv['force-tracking'],
+  });
 
   // Routes
-  app.get('/', homeController.getHome);
-  app.get('/source/:urlpath', videoSourceController.getVideoSource);
-  app.get('/video/:urlpath', videoController.getVideo);
-  app.patch('/video/:urlpath/bookmark', bookmarkController.saveBookmark);
-  app.patch('/video/:urlpath/watched', trackingController.markVideoAsWatched);
-  app.post(
-    '/progress',
-    progressController.uploadSetup,
-    progressController.importFile,
-  );
-  app.get('/progress', progressController.exportFile);
+  app.get('/', homeCtrl.getHome);
+  app.get('/videos/:urlpath/source', videoSourceCtrl.getVideo);
+  app.get('/videos/:urlpath/subtitles', videoSourceCtrl.getSubtitles);
+  app.get('/videos/:urlpath', videoCtrl.getVideo);
+  app.patch('/videos/:urlpath/bookmark', bookmarkCtrl.saveBookmark);
+  app.patch('/videos/:urlpath/watched', trackingCtrl.markVideoAsWatched);
+  app.post('/progress', progressCtrl.uploadSetup, progressCtrl.importFile);
+  app.get('/progress', progressCtrl.exportFile);
 
   // Bootstrap
   const port = argv['port'] || 4242;

@@ -15,13 +15,13 @@
   </section>
 
   <!-- Start -->
-  <a href="/video/<%= firstVideo %>" class="banner-action">
+  <a href="/videos/<%= firstVideo %>" class="banner-action">
     Start with the first video
   </a>
 
   <!-- Last watched video -->
   <% if (locals.lastWatchedVideo) { %>
-    <a href="/video/<%= lastWatchedVideo %>" class="banner-action">
+    <a href="/videos/<%= lastWatchedVideo %>" class="banner-action">
       Continue from last watched
     </a>
   <% } %>
@@ -29,7 +29,7 @@
   <!-- Bookmark -->
   <% if (locals.bookmark) { %>
     <a
-      href="/video/<%= bookmark.urlPath %>?t=<%= bookmark.currentTime %>" 
+      href="/videos/<%= bookmark.urlPath %>?t=<%= bookmark.currentTime %>" 
       class="banner-action"
     >
       Continue from bookmark

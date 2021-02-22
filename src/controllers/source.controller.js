@@ -1,4 +1,5 @@
 const fs = require('fs');
+const srt2vtt = require('srt-to-vtt');
 
 const videosCache = require('../services/videos-cache.service');
 const config = require('../config/video.config');
@@ -12,14 +13,13 @@ const buildHeaders = (start, end, size, contentLength) => {
   };
 };
 
-const getVideoFullPath = (urlpath) => {
-  const videos = videosCache.get();
-  const video = videos.find(vid => vid.urlPath === urlpath);
-  return video.fullPath;
+const getVideoFromCache = (urlpath) => {
+  const videos = videosCache.get('videos');
+  return videos.find(vid => vid.urlPath === urlpath);
 };
 
 // Export
-const getVideoSource = (req, res) => {
+const getVideo = (req, res) => {
 
   // Check range headers
   const range = req.headers.range;
@@ -35,17 +35,35 @@ const getVideoSource = (req, res) => {
     return;
   }
 
-  const filePath = getVideoFullPath(req.params.urlpath);
-  const fileSize = fs.statSync(filePath).size;
+  const video = getVideoFromCache(req.params.urlpath);
+  const { fullPath } = video;
+  const fileSize = fs.statSync(fullPath).size;
   const start = Number(range.replace(/\D/g, ''));
   const end = Math.min(start + config.STREAM_CHUNK_SIZE, fileSize - 1);
   const contentLength = end - start + 1;
   const headers = buildHeaders(start, end, fileSize, contentLength);
   res.writeHead(206, headers);
-  const stream = fs.createReadStream(filePath, { start, end });
+  const stream = fs.createReadStream(fullPath, { start, end });
   stream.pipe(res);
 };
 
+// Export
+const getSubtitles = (req, res) => {
+  const video = getVideoFromCache(req.params.urlpath);
+  const { subtitlesPath } = video;
+
+  if (!fs.existsSync(subtitlesPath)) {
+    return res.status(400).send({
+      message: 'Subtitles not found',
+    });
+  }
+
+  fs.createReadStream(subtitlesPath)
+    .pipe(srt2vtt())
+    .pipe(res);
+};
+
 module.exports = {
-  getVideoSource,
+  getVideo,
+  getSubtitles,
 };

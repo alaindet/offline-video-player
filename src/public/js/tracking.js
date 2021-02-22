@@ -12,7 +12,7 @@
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ urlPath, action }),
     };
-    const response = await fetch(`/video/${urlPath}/watched`, options);
+    const response = await fetch(`/videos/${urlPath}/watched`, options);
     const body = await response.json();
     APP.addAlert(body.message);
     stopTimer();

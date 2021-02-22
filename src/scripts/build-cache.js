@@ -11,4 +11,8 @@ if (argv['videos-path']) {
   videosPathCache.set(argv['videos-path']);
 }
 
-videosCache.build();
+const subtitles = argv['subtitles'] ? argv['subtitles'] : null;
+
+videosCache.build({
+  subtitles,
+});

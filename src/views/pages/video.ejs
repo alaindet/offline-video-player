@@ -3,6 +3,7 @@
 - video
 - ?nextVideo
 - ?currentTime
+- ?subtitles
 #%>
 <%- include('../includes/top.ejs') %>
 
@@ -12,13 +13,25 @@
     <video
       controls
       class="video-player"
+      data-next-video="<%= nextVideo ? '/videos/' + nextVideo : 'no' %>"
+      data-current-video="<%= video.urlPath %>"
       <% if (locals.currentTime && locals.currentTime !== null) { %>
         data-current-time="<%= currentTime %>"
       <% } %>
-      data-next-video="<%= nextVideo ? '/video/' + nextVideo : 'no' %>"
-      data-current-video="<%= video.urlPath %>"
     >
-      <source src="/source/<%= video.urlPath %>" type="video/mp4">
+      <source
+        src="/videos/<%= video.urlPath %>/source"
+        type="video/mp4"
+      >
+      <% if (locals.subtitles) { %>
+        <track
+          label="<%= subtitles.label %>"
+          kind="subtitles"
+          srclang="<%= subtitles.lang %>"
+          src="/videos/<%= video.urlPath %>/subtitles"
+          default
+        >
+      <% } %>
     </video>
   </main>
 

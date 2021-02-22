@@ -13,7 +13,7 @@
   <% for (const video of videos) { %>
     <li>
       <a
-        href="/video/<%= video.urlPath %>"
+        href="/videos/<%= video.urlPath %>"
         class="video-item<%= (currentVideo === video.urlPath) ? ' active' : '' %><%= (videosTracking[video.urlPath] ? ' watched' : '') %>"
       >
         <h3 class="item-title"><%= video.name %></h3>
