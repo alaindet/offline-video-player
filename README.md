@@ -57,10 +57,30 @@ Offline Video Player is admittedly a specific solution to a specific problem, so
   - `--force-cache` (Default `false`) Force to rebuild the videos cache file
   - `--force-tracking` (Default `false`) Force to rebuild and reset the videos tracking
   - `--videos-path` (Default: `/videos`) Change the videos folder (accepts only *full paths*)
+  - `--subtitles` (Default: `false`) Adds a subtitle track if given a BCP47-compliant language code. See **Subtitles** paragraph below
+
 - `npm run build-cache` Rebuild the videos cache file from videos folder. Options are
   - `--videos-path` (Default: `/videos`) Change the videos folder (accepts only *full paths*)
+  - `--subtitles` (Default: `false`) Same as `--subtitles` option of `npm run start`
+
 - `npm run build-tracking` Rebuild the videos tracking feature
+
 - `npm run reset` Reset all generated files (WARNING: Deletes progress)
+
+### Subtitles
+- Subtitles are added as an additional `<track>` HTML element when either `npm run start` or `npm run build-cache` are given the `--subtitles` option. Ex.:
+  ```
+  npm run start -- --subtitles=it
+  npm run start -- --subtitles
+  npm run build-cache -- --subtitles=en
+  npm run build-cache -- --subtitles
+  ```
+- If no value for the option is provided (Ex.: `--subtitles` instead of `--subtitles=it`), a default value (`en`) is assumed
+- The `--subtitles` value must be a [BCP47](https://github.com/libyal/libfwnt/wiki/Language-Code-identifiers) compliant language code, ex.: `en`, `it` or `de` ([Official reference](https://tools.ietf.org/html/bcp47) here)
+- Given a video file with path `foo.mp4`, its subtitles file path is determined as follows
+  1. Check if `foo.srt` exists in the same folder
+  2. Check if `foo.{lang}.srt` exists (Ex.: `foo.en.srt`) in the same folder
+  3. If none exists, skip subtitles for this video
 
 
 ## Options
@@ -77,9 +97,9 @@ Offline Video Player is admittedly a specific solution to a specific problem, so
   # NOPE
   npm start -- --videos-path=C:\your\specific\path # IT DOES NOT WORK!
   ```
-  
+
   but these two work
-  
+
   ```
   # YEP
   npm start -- --videos-path="C:\your\specific\path"

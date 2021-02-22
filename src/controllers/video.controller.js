@@ -1,10 +1,20 @@
 const videosCache = require('../services/videos-cache.service');
 const videosTracking = require('../services/videos-tracking.service');
+const getLanguageLabel = require('../utils/subtitles/get-language-label');
 
 const buildViewData = (req) => {
 
   const currentTime = req.query.t;
-  const videos = videosCache.get();
+  const videosCacheContent = videosCache.get();
+  const videos = videosCacheContent['videos'];
+
+  let subtitles = null;
+  if (videosCacheContent['subtitles'] && videosCacheContent['subtitles'] !== 'false') {
+    const lang = videosCacheContent['subtitles'];
+    const label = getLanguageLabel(lang);
+    subtitles = { lang, label };
+  }
+
   const urlPath = req.params.urlpath;
   const videoIndex = videos.findIndex(v => v.urlPath === urlPath);
 
@@ -21,6 +31,7 @@ const buildViewData = (req) => {
     pageTitle: video.name,
     video,
     videos,
+    subtitles,
     currentVideo: video.urlPath,
     prevVideo: prevVideo ? prevVideo.urlPath : null,
     nextVideo: nextVideo ? nextVideo.urlPath : null,

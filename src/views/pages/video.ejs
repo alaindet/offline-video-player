@@ -3,6 +3,7 @@
 - video
 - ?nextVideo
 - ?currentTime
+- ?subtitles
 #%>
 <%- include('../includes/top.ejs') %>
 
@@ -22,14 +23,15 @@
         src="/videos/<%= video.urlPath %>/source"
         type="video/mp4"
       >
-      <!-- TODO -->
-      <!-- <track
-        label="The subtitle label"
-        kind="subtitles"
-        srclang="en"
-        src="/videos/<%= video.urlPath %>/subtitles"
-        default
-      > -->
+      <% if (locals.subtitles) { %>
+        <track
+          label="<%= subtitles.label %>"
+          kind="subtitles"
+          srclang="<%= subtitles.lang %>"
+          src="/videos/<%= video.urlPath %>/subtitles"
+          default
+        >
+      <% } %>
     </video>
   </main>
 

@@ -1,5 +1,0 @@
-- [ ] Add `--sub-lang` or `--subtitles-language` to `npm start` and `npm run build-cache`
-- [ ] Stream .srt to .vtt via an endpoint
-- [ ] Update README.md
-- [ ] Update CHANGELOG.md
-- [ ] Release new version

@@ -44,13 +44,18 @@ if (argv['videos-path']) {
   videosPathCache.set(argv['videos-path']);
 }
 
-// TODO: Set subtitles language
-
 (async () => {
 
-  // Setup services
-  await videosCache.init(!!argv['force-cache']);
-  videosTracking.init(!!argv['force-tracking']);
+  // Setup video cache
+  await videosCache.init({
+    force: !!argv['force-cache'],
+    subtitles: argv['subtitles'],
+  });
+
+  // Setup video tracking
+  videosTracking.init({
+    force: !!argv['force-tracking'],
+  });
 
   // Routes
   app.get('/', homeCtrl.getHome);

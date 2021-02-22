@@ -4,7 +4,7 @@ const bookmark = require('../services/bookmark.service');
 const lastWatchedVideo = require('../services/last-watched-video.service');
 
 const getHome = (req, res) => {
-  const videos = videosCache.get();
+  const videos = videosCache.get('videos');
   res.render('pages/home', {
     pageTitle: 'Offline Video Player',
     firstVideo: videos[0].urlPath,
