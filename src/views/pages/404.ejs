@@ -1,10 +1,11 @@
 <%#
 # Variables
+- title
 - message
 #%>
 <%- include('../includes/top.ejs') %>
 
-<h1>Page not found</h1>
-<p><%= message %></p>
+<h1><%= title %></h1>
+<p><%- message %></p>
 
 <%- include('../includes/bottom.ejs') %>

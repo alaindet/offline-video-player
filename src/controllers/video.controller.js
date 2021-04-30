@@ -47,6 +47,7 @@ const getVideo = (req, res) => {
     res.render('pages/video', data);
   } catch (error) {
     console.error('ERROR', error);
+    const title = 'No video found';
     const message = error.message;
     return res.status(404).render('pages/404', { message });
   }
